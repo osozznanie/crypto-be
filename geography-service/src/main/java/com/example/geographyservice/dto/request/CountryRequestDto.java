@@ -10,5 +10,6 @@ public class CountryRequestDto {
     private String name;
     @NotNull
     private String continentId;
+    @NotNull
     private Long pixelNumber;
 }
