@@ -30,6 +30,7 @@ public class ContinentController {
     public ContinentDto getContinentById(@PathVariable String id) {
         return continentService.getById(id);
     }
+
     @GetMapping
     public List<ContinentDto> getAllContinents() {
         return continentService.getAll();

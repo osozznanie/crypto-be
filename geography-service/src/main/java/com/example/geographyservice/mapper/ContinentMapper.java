@@ -23,8 +23,7 @@ public class ContinentMapper {
 
     public Continent toModel(ContinentRequestDto dto) {
         Continent continent = new Continent();
-        continent.setName(dto.getName());
-        continent.setPixelNumber(dto.getPixelNumber());
+        updateModelFromDto(continent, dto);
         return continent;
     }
 }

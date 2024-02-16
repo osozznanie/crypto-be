@@ -30,6 +30,7 @@ public class CountryController {
     public CountryDto getCountryById(@PathVariable String id) {
         return countryService.getById(id);
     }
+
     @GetMapping
     public List<CountryDto> getAllCountries() {
         return countryService.getAll();

@@ -26,8 +26,7 @@ public class CountryMapper {
 
     public Country toModel(CountryRequestDto dto) {
         Country country = new Country();
-        country.setName(dto.getName());
-        country.setPixelNumber(dto.getPixelNumber());
+        updateModelFromDto(country, dto);
         return country;
     }
 }
