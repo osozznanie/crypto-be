@@ -1,0 +1,250 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: apiGateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: new-analytic
+          uri: lb://analytic-service
+          predicates:
+            - Path=/analytic/new-analytic
+            - Method=POST
+        - id: update-analytic
+          uri: lb://analytic-service
+          predicates:
+            - Path=/analytic/update-analytic
+            - Method=PUT
+        - id: delete-analytic
+          uri: lb://analytic-service
+          predicates:
+            - Path=/analytic/delete-analytic
+            - Method=DELETE
+        - id: get-analytic
+          uri: lb://analytic-service
+          predicates:
+            - Path=/analytic/get-analytic
+            - Method=GET
+        - id: new-company
+          uri: lb://company-service
+          predicates:
+            - Path=/api/companies
+            - Method=POST
+        - id: update-company
+          uri: lb://company-service
+          predicates:
+            - Path=/api/companies/{id}
+            - Method=PUT
+        - id: delete-company
+          uri: lb://company-service
+          predicates:
+            - Path=/api/companies
+            - Method=DELETE
+        - id: get-company
+          uri: lb://company-service
+          predicates:
+            - Path=/api/companies/{id}
+            - Method=GET
+        - id: get-all-companies
+          uri: lb://company-service
+          predicates:
+            - Path=/api/companies
+            - Method=GET
+        # Geography Service Routes
+        - id: world-total-pixel-number
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/world/total-pixel-number
+            - Method=GET
+        - id: world-total-sold-pixel-number
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/world/total-sold-pixel-number
+            - Method=GET
+        - id: world-add-sold-pixels
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/world/update
+            - Method=PUT
+        - id: new-continent
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/continents
+            - Method=POST
+        - id: update-continent
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/continents/{id}
+            - Method=PUT
+        - id: delete-continent
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/continents/{id}
+            - Method=DELETE
+        - id: get-continent
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/continents/{id}
+            - Method=GET
+        - id: get-all-continents
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/continents
+            - Method=GET
+        - id: new-country
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/countries
+            - Method=POST
+        - id: update-country
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/countries/{id}
+            - Method=PUT
+        - id: delete-country
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/countries/{id}
+            - Method=DELETE
+        - id: get-country
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/countries/{id}
+            - Method=GET
+        - id: get-all-countries
+          uri: lb://geography-service
+          predicates:
+            - Path=/api/countries
+            - Method=GET
+        # Logging Service Routes
+        - id: new-logging
+          uri: lb://logging-service
+          predicates:
+            - Path=/logging/new-logging
+            - Method=POST
+        - id: update-logging
+          uri: lb://logging-service
+          predicates:
+            - Path=/logging/update-logging
+            - Method=PUT
+        - id: delete-logging
+          uri: lb://logging-service
+          predicates:
+            - Path=/logging/delete-logging
+            - Method=DELETE
+        - id: get-logging
+          uri: lb://logging-service
+          predicates:
+            - Path=/logging/get-logging
+            - Method=GET
+        # MarketPlace Service Routes
+        - id: new-market-listing
+          uri: lb://marketplace-service
+          predicates:
+            - Path=/api/market-listings
+            - Method=POST
+        - id: update-market-listing
+          uri: lb://marketplace-service
+          predicates:
+            - Path=/api/market-listings/{id}
+            - Method=PUT
+        - id: delete-market-listing
+          uri: lb://marketplace-service
+          predicates:
+            - Path=/api/market-listings/{id}
+            - Method=DELETE
+        - id: get-market-listing
+          uri: lb://marketplace-service
+          predicates:
+            - Path=/api/market-listings/{id}
+            - Method=GET
+        - id: get-all-market-listings
+          uri: lb://marketplace-service
+          predicates:
+            - Path=/api/market-listings
+            - Method=GET
+        # Transaction Service Routes
+        - id: new-pixel-transaction
+          uri: lb://transaction-service
+          predicates:
+            - Path=/api/pixel-transactions
+            - Method=POST
+        - id: update-pixel-transaction
+          uri: lb://transaction-service
+          predicates:
+            - Path=/api/pixel-transactions{id}
+            - Method=PUT
+        - id: delete-pixel-transaction
+          uri: lb://transaction-service
+          predicates:
+            - Path=/api/pixe-transactions/{id}
+            - Method=DELETE
+        - id: get-pixel-transaction
+          uri: lb://transaction-service
+          predicates:
+            - Path=/api/pixel-transactions/{id}
+            - Method=GET
+        - id: get-all-pixel-transactions
+          uri: lb://transaction-service
+          predicates:
+            - Path=/api/pixel-transactions
+            - Method=GET
+        # User Service Routes
+        - id: new-user
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users
+            - Method=POST
+        - id: update-user
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/{id}
+            - Method=PUT
+        - id: delete-user
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/{id}
+            - Method=DELETE
+        - id: get-user
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/{id}
+            - Method=GET
+        - id: get-all-users
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users
+            - Method=GET
+        # Authentication Service Routes
+        - id: login
+          uri: lb://authentication-service
+          predicates:
+            - Path=/auth/login
+            - Method=POST
+        - id: register
+          uri: lb://authentication-service
+          predicates:
+            - Path=/auth/register
+            - Method=POST
+        - id: logout
+          uri: lb://authentication-service
+          predicates:
+            - Path=/auth/logout
+            - Method=POST
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8010/eureka/
