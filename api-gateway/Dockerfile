@@ -14,7 +14,7 @@ EXPOSE 8080
 ARG JAR_FILE=target/*.jar
 
 # Add the application's jar to the container
-ADD ${JAR_FILE} apiGateway.jar
+ADD ${JAR_FILE} api-gateway.jar
 
 # Run the jar file
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/apiGateway.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/api-gateway.jar"]

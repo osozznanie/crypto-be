@@ -30,7 +30,7 @@
         <module>authentication-service</module>
         <module>user-service</module>
         <module>analytic-service</module>
-        <module>apiGateway</module>
+        <module>api-gateway</module>
     </modules>
 
     <dependencies>
