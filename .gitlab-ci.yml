@@ -37,7 +37,8 @@ build:
     - docker push $CI_REGISTRY_IMAGE/user-service:prod
     - docker push $CI_REGISTRY_IMAGE/api-gateway:prod
   only:
-    - master
+    - dev
+    - prod
 
 deploy:
   stage: deploy
