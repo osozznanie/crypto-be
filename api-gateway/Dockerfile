@@ -1,20 +1,18 @@
-# Start with a base image containing Java runtime
-FROM openjdk:17-jdk-slim as build
+FROM openjdk:17-slim-buster as build
 
-# Add Maintainer Info
-LABEL maintainer="liubomyr"
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+COPY src src
 
-# Add a volume pointing to /tmp
-VOLUME /tmp
+RUN ./mvnw -B dependency:go-offline
 
-# Make port 8080 available to the world outside this container
-EXPOSE 8080
+RUN ./mvnw -B package
 
-# The application's jar file
-ARG JAR_FILE=target/*.jar
+FROM openjdk:17-slim-buster
 
-# Add the application's jar to the container
-ADD ${JAR_FILE} api-gateway.jar
+COPY --from=build target/api-gateway.jar .
 
-# Run the jar file
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/api-gateway.jar"]
+EXPOSE 9090
+
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "api-gateway.jar"]

@@ -1,0 +1,132 @@
+version: '3.7'
+
+services:
+  eureka-server:
+    image: liubcheck/eureka-server:prod
+    container_name: eureka-server
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices-network
+
+  analytic-service:
+    image: liubcheck/analytic-service:prod
+    container_name: analytic-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      - eureka-server
+    ports:
+      - "8081:8081"
+    networks:
+      - microservices-network
+
+  authentication-service:
+    image: liubcheck/authentication-service:prod
+    container_name: authentication-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      - eureka-server
+    ports:
+      - "8082:8082"
+    networks:
+      - microservices-network
+
+  company-service:
+    image: liubcheck/company-service:prod
+    container_name: company-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      - eureka-server
+    ports:
+      - "8083:8083"
+    networks:
+      - microservices-network
+
+  geography-service:
+    image: liubcheck/geography-service:prod
+    container_name: geography-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      - eureka-server
+    ports:
+      - "8084:8084"
+    networks:
+      - microservices-network
+
+  logging-service:
+    image: liubcheck/logging-service:prod
+    container_name: logging-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      - eureka-server
+    ports:
+      - "8085:8085"
+    networks:
+      - microservices-network
+
+  marketplace-service:
+    image: liubcheck/marketplace-service:prod
+    container_name: marketplace-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      - eureka-server
+    ports:
+      - "8086:8086"
+    networks:
+      - microservices-network
+
+  transaction-service:
+    image: liubcheck/transaction-service:prod
+    container_name: transaction-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      - eureka-server
+    ports:
+      - "8087:8087"
+    networks:
+      - microservices-network
+
+  user-service:
+    image: liubcheck/user-service:prod
+    container_name: user-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      - eureka-server
+    ports:
+      - "8088:8088"
+    networks:
+      - microservices-network
+
+  api-gateway:
+    image: liubcheck/api-gateway:prod
+    container_name: api-gateway
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    depends_on:
+      - eureka-server
+      - analytic-service
+      - authentication-service
+      - company-service
+      - geography-service
+      - logging-service
+      - marketplace-service
+      - transaction-service
+      - user-service
+    networks:
+      - microservices-network
+
+networks:
+  microservices-network:
+    driver: bridge

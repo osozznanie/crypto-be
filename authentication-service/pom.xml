@@ -40,6 +40,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>authentication-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
