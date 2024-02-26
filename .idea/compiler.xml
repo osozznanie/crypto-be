@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -25,7 +26,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="analytic-service" options="-parameters" />
-      <module name="apiGateway" options="-parameters" />
+      <module name="apiGateway" options="" />
       <module name="authentication-service" options="-parameters" />
       <module name="company-service" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
