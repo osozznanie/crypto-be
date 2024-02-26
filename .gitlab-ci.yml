@@ -54,5 +54,5 @@ deploy:
     - docker pull $CI_REGISTRY_IMAGE/api-gateway:prod
     - docker-compose -f docker-compose.yml up -d
   only:
-    - master
+    - dev
 
