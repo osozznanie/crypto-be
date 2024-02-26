@@ -52,7 +52,7 @@ deploy:
     - docker pull $CI_REGISTRY_IMAGE/transaction-service:prod
     - docker pull $CI_REGISTRY_IMAGE/user-service:prod
     - docker pull $CI_REGISTRY_IMAGE/api-gateway:prod
-    - docker-compose -f docker-compose.prod.yaml up -d
+    - docker-compose -f docker-compose.yml up -d
   only:
     - master
 
