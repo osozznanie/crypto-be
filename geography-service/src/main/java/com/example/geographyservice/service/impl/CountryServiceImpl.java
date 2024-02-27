@@ -4,9 +4,9 @@ import com.example.geographyservice.dto.request.CountryRequestDto;
 import com.example.geographyservice.dto.response.CountryDto;
 import com.example.geographyservice.mapper.CountryMapper;
 import com.example.geographyservice.model.Country;
-import com.example.geographyservice.repository.ContinentRepository;
 import com.example.geographyservice.repository.CountryRepository;
 import com.example.geographyservice.service.CountryService;
+import com.example.geographyservice.service.PixelService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +17,15 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CountryServiceImpl implements CountryService {
     private final CountryRepository countryRepository;
-    private final ContinentRepository continentRepository;
+    private final PixelService pixelService;
     private final CountryMapper countryMapper;
 
     @Override
     @Transactional
     public CountryDto save(CountryRequestDto requestDto) {
         Country country = countryMapper.toModel(requestDto);
+        countryRepository.save(country);
+        pixelService.createPixels(country.getTag(), country.getPixelNumber());
         return countryMapper.toDto(countryRepository.save(country));
     }
 

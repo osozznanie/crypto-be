@@ -12,6 +12,8 @@ public class Country {
     private String id;
     @Indexed(unique = true)
     private String name;
+    @Indexed(unique = true)
+    private String tag;
     private String continentId;
     private Long pixelNumber;
     private Long soldPixelNumber = 0L;

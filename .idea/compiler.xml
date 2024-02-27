@@ -10,7 +10,7 @@
         <module name="analytic-service" />
         <module name="authentication-service" />
         <module name="geography-service" />
-        <module name="apiGateway" />
+        <module name="api-gateway" />
         <module name="transaction-service" />
         <module name="marketplace-service" />
         <module name="company-service" />
@@ -26,6 +26,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="analytic-service" options="-parameters" />
+      <module name="api-gateway" options="-parameters" />
       <module name="apiGateway" options="" />
       <module name="authentication-service" options="-parameters" />
       <module name="company-service" options="-parameters" />

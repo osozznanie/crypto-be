@@ -12,6 +12,7 @@ public class CountryMapper {
         CountryDto dto = new CountryDto();
         dto.setId(country.getId());
         dto.setName(country.getName());
+        dto.setTag(country.getTag());
         dto.setContinentId(country.getId());
         dto.setPixelNumber(country.getPixelNumber());
         dto.setSoldPixelNumber(country.getSoldPixelNumber());
@@ -20,6 +21,7 @@ public class CountryMapper {
 
     public void updateModelFromDto(Country country, CountryRequestDto dto) {
         country.setName(dto.getName());
+        country.setTag(dto.getTag());
         country.setPixelNumber(dto.getPixelNumber());
     }
 
