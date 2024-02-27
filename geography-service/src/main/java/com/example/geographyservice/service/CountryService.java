@@ -2,6 +2,7 @@ package com.example.geographyservice.service;
 
 import com.example.geographyservice.dto.request.CountryRequestDto;
 import com.example.geographyservice.dto.response.CountryDto;
+import com.example.geographyservice.dto.response.CountryStatsDto;
 import java.util.List;
 
 public interface CountryService {
@@ -12,6 +13,8 @@ public interface CountryService {
     List<CountryDto> getAll();
 
     CountryDto update(String id, CountryRequestDto requestDto);
+
+    CountryStatsDto getCountryStats(String countryTag);
 
     void deleteById(String id);
 }
