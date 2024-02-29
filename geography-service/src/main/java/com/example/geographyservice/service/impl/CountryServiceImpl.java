@@ -2,8 +2,10 @@ package com.example.geographyservice.service.impl;
 
 import com.example.geographyservice.dto.request.CountryRequestDto;
 import com.example.geographyservice.dto.response.CountryDto;
+import com.example.geographyservice.dto.response.CountryStatsDto;
 import com.example.geographyservice.mapper.CountryMapper;
 import com.example.geographyservice.model.Country;
+import com.example.geographyservice.model.Pixel;
 import com.example.geographyservice.repository.CountryRepository;
 import com.example.geographyservice.service.CountryService;
 import com.example.geographyservice.service.PixelService;
@@ -52,6 +54,19 @@ public class CountryServiceImpl implements CountryService {
         countryMapper.updateModelFromDto(countryForUpdate, requestDto);
         countryRepository.save(countryForUpdate);
         return countryMapper.toDto(countryForUpdate);
+    }
+
+    @Override
+    public CountryStatsDto getCountryStats(String countryTag) {
+        CountryStatsDto statsDto = new CountryStatsDto();
+        Country country = countryRepository.findByTag(countryTag).orElseThrow(
+                () -> new EntityNotFoundException("No country is found by tag = " + countryTag)
+        );
+        List<Pixel> countryPixels = pixelService.getAllPixelsByCountryTag(countryTag);
+        countryPixels.forEach(pixel -> pixel.setCompanyId("test_ID"));
+        statsDto.setCountryName(country.getName());
+        statsDto.setCountryPixels(countryPixels);
+        return statsDto;
     }
 
     @Override

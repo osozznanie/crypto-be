@@ -2,6 +2,7 @@ package com.example.geographyservice.controller;
 
 import com.example.geographyservice.dto.request.CountryRequestDto;
 import com.example.geographyservice.dto.response.CountryDto;
+import com.example.geographyservice.dto.response.CountryStatsDto;
 import com.example.geographyservice.service.CountryService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -40,6 +41,11 @@ public class CountryController {
     public CountryDto updateCountry(@PathVariable String id,
                                         @RequestBody @Valid CountryRequestDto requestDto) {
         return countryService.update(id, requestDto);
+    }
+
+    @GetMapping("/stats/{tag}")
+    public CountryStatsDto getCountryStats(@PathVariable String tag) {
+        return countryService.getCountryStats(tag);
     }
 
     @DeleteMapping("/{id}")

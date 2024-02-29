@@ -23,4 +23,9 @@ public class PixelServiceImpl implements PixelService {
         }
         pixelRepository.saveAll(pixels);
     }
+
+    @Override
+    public List<Pixel> getAllPixelsByCountryTag(String countryTag) {
+        return pixelRepository.findAllByCountryTag(countryTag);
+    }
 }
