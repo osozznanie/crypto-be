@@ -1,4 +1,4 @@
 FROM openjdk:17-slim-buster
-COPY target/transaction-service.jar transaction-service.jar
+COPY target/*.jar transaction-service.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "transaction-service.jar"]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "/transaction-service.jar"]

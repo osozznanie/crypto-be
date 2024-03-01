@@ -7,16 +7,16 @@ build:
   image: maven:3.6.3-jdk-11
   script:
     - mvn clean package
-    - sudo docker build -t eureka-server:prod ./eureka-server/
-    - sudo docker build -t api-gateway:prod ./api-gateway/
-    - sudo docker build -t analytic-service:prod ./analytic-service/
-    - sudo docker build -t authentication-service:prod ./authentication-service/
-    - sudo docker build -t company-service:prod ./company-service/
-    - sudo docker build -t geography-service:prod ./geography-service/
-    - sudo docker build -t logging-service:prod ./logging-service/
-    - sudo docker build -t marketplace-service:prod ./marketplace-service/
-    - sudo docker build -t transaction-service:prod ./transaction-service/
-    - sudo docker build -t user-service:prod ./user-service/
+    - sudo docker build -t cryptoworld/eureka-server:prod ./eureka-server/
+    - sudo docker build -t cryptoworld/api-gateway:prod ./api-gateway/
+    - sudo docker build -t cryptoworld/analytic-service:prod ./analytic-service/
+    - sudo docker build -t cryptoworld/authentication-service:prod ./authentication-service/
+    - sudo docker build -t cryptoworld/company-service:prod ./company-service/
+    - sudo docker build -t cryptoworld/geography-service:prod ./geography-service/
+    - sudo docker build -t cryptoworld/logging-service:prod ./logging-service/
+    - sudo docker build -t cryptoworld/marketplace-service:prod ./marketplace-service/
+    - sudo docker build -t cryptoworld/transaction-service:prod ./transaction-service/
+    - sudo docker build -t cryptoworld/user-service:prod ./user-service/
   artifacts:
     paths:
       - target/
