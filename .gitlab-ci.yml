@@ -10,7 +10,8 @@ build:
   stage: build
   image: maven:3.6.3-jdk-11
   script:
-    - sudo docker build -t $IMAGE_NAME
+    - mvn clean package
+    - sudo docker build -t $IMAGE_NAME .
   artifacts:
     paths:
       - target/
