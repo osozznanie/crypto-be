@@ -3,15 +3,24 @@ stages:
   - deploy
 
 variables:
-  IMAGE_NAME: crypto-world
-  CONTAINER_NAME: crypto-world-container
+  DOCKER_DRIVER: overlay2
 
 build:
   stage: build
-  image: maven:3.6.3-jdk-11
+  image: docker:19.03.12
+  services:
+    - sudo docker:dind
   script:
-    - mvn clean package
-    - sudo docker build -t $IMAGE_NAME .
+    - sudo docker build -t eureka-server:prod ./eureka-server/
+    - sudo docker build -t api-gateway:prod ./api-gateway/
+    - sudo docker build -t analytic-service:prod ./analytic-service/
+    - sudo docker build -t authentication-service:prod ./authentication-service/
+    - sudo docker build -t company-service:prod ./company-service/
+    - sudo docker build -t geography-service:prod ./geography-service/
+    - sudo docker build -t logging-service:prod ./logging-service/
+    - sudo docker build -t marketplace-service:prod ./marketplace-service/
+    - sudo docker build -t transaction-service:prod ./transaction-service/
+    - sudo docker build -t user-service:prod ./user-service/
   artifacts:
     paths:
       - target/
@@ -19,8 +28,9 @@ build:
 deploy:
   stage: deploy
   image: docker:19.03.12
+  services:
+    - docker:dind
   script:
-    - sudo docker run -d --rm --name $CONTAINER_NAME -p 8080:8080 $IMAGE_NAME
+    - docker-compose up -d
   only:
     - dev
-
