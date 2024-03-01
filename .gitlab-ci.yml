@@ -11,6 +11,7 @@ build:
   services:
     - sudo docker:dind
   script:
+    - mvn clean package
     - sudo docker build -t eureka-server:prod ./eureka-server/
     - sudo docker build -t api-gateway:prod ./api-gateway/
     - sudo docker build -t analytic-service:prod ./analytic-service/
