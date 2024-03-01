@@ -11,8 +11,6 @@ build:
   artifacts:
     paths:
       - target/
-      - */target/*.jar
-    expire_in: 1 hour
 
 dockerize:
   stage: dockerize
