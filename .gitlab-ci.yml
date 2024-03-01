@@ -1,6 +1,5 @@
 stages:
   - build
-  - dockerize
   - deploy
 
 build:
@@ -8,16 +7,6 @@ build:
   image: maven:3.6.3-jdk-11
   script:
     - mvn clean package
-  artifacts:
-    paths:
-      - target/
-
-dockerize:
-  stage: dockerize
-  image: docker:19.03.12
-  services:
-    - docker:dind
-  script:
     - sudo docker build -t eureka-server:prod ./eureka-server/
     - sudo docker build -t api-gateway:prod ./api-gateway/
     - sudo docker build -t analytic-service:prod ./analytic-service/
@@ -28,8 +17,9 @@ dockerize:
     - sudo docker build -t marketplace-service:prod ./marketplace-service/
     - sudo docker build -t transaction-service:prod ./transaction-service/
     - sudo docker build -t user-service:prod ./user-service/
-  only:
-    - dev
+  artifacts:
+    paths:
+      - target/
 
 deploy:
   stage: deploy
