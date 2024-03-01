@@ -1,30 +1,37 @@
 stages:
   - build
+  - dockerize
   - deploy
-
-variables:
-  DOCKER_DRIVER: overlay2
 
 build:
   stage: build
-  image: docker:19.03.12
-  services:
-    - sudo docker:dind
+  image: maven:3.6.3-jdk-11
   script:
     - mvn clean package
-    - sudo docker build -t eureka-server:prod ./eureka-server/
-    - sudo docker build -t api-gateway:prod ./api-gateway/
-    - sudo docker build -t analytic-service:prod ./analytic-service/
-    - sudo docker build -t authentication-service:prod ./authentication-service/
-    - sudo docker build -t company-service:prod ./company-service/
-    - sudo docker build -t geography-service:prod ./geography-service/
-    - sudo docker build -t logging-service:prod ./logging-service/
-    - sudo docker build -t marketplace-service:prod ./marketplace-service/
-    - sudo docker build -t transaction-service:prod ./transaction-service/
-    - sudo docker build -t user-service:prod ./user-service/
   artifacts:
     paths:
       - target/
+      - */target/*.jar
+    expire_in: 1 hour
+
+dockerize:
+  stage: dockerize
+  image: docker:19.03.12
+  services:
+    - docker:dind
+  script:
+    - docker build -t eureka-server:prod ./eureka-server/
+    - docker build -t api-gateway:prod ./api-gateway/
+    - docker build -t analytic-service:prod ./analytic-service/
+    - docker build -t authentication-service:prod ./authentication-service/
+    - docker build -t company-service:prod ./company-service/
+    - docker build -t geography-service:prod ./geography-service/
+    - docker build -t logging-service:prod ./logging-service/
+    - docker build -t marketplace-service:prod ./marketplace-service/
+    - docker build -t transaction-service:prod ./transaction-service/
+    - docker build -t user-service:prod ./user-service/
+  only:
+    - dev
 
 deploy:
   stage: deploy
