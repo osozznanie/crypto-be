@@ -1,18 +1,4 @@
-FROM openjdk:17-slim-buster as build
-
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
-
-RUN ./mvnw -B dependency:go-offline
-
-RUN ./mvnw -B package
-
 FROM openjdk:17-slim-buster
-
-COPY --from=build target/api-gateway.jar .
-
-EXPOSE 9090
-
+COPY target/eureka-server.jar api-gateway.jar
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=prod", "api-gateway.jar"]
