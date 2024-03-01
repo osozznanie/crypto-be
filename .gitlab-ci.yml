@@ -27,6 +27,6 @@ deploy:
   services:
     - docker:dind
   script:
-    - sudo docker-compose up -d
+    - sudo docker compose up -d
   only:
     - dev
