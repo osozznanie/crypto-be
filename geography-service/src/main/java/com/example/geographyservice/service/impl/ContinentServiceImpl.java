@@ -67,6 +67,7 @@ public class ContinentServiceImpl implements ContinentService {
         Continent continentForUpdate = continentRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("No continent is found by id = " + id)
         );
+        continentForUpdate.setSoldPixelNumber(continentForUpdate.getSoldPixelNumber() + requestDto.getPixelNumber());
         continentRepository.save(continentForUpdate);
         worldService.addSoldPixels(requestDto.getPixelNumber());
         return continentMapper.toDto(continentForUpdate);
