@@ -103,4 +103,11 @@ public class CountryServiceImpl implements CountryService {
     public void deleteById(String id) {
         countryRepository.deleteById(id);
     }
+
+    @Override
+    public CountryDto getByTag(String tag) {
+        return countryMapper.toDto(countryRepository.findByTag(tag).orElseThrow(
+                () -> new EntityNotFoundException("No country is found by tag = " + tag)
+        ));
+    }
 }

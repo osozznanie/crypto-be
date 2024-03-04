@@ -15,6 +15,6 @@ public interface CountryFeign {
     CountryDto updateCountryForPurchase(@PathVariable String tag,
                                         @RequestBody @Valid CountryPurchaseRequestDto requestDto);
 
-    @GetMapping("/{id}")
-    CountryDto getCountryById(@PathVariable String id);
+    @GetMapping("/{tag}")
+    CountryDto getCountryByTag(@PathVariable String tag);
 }

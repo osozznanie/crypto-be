@@ -32,7 +32,7 @@ public class PixelTransactionServiceImpl implements PixelTransactionService {
     @Override
     @Transactional
     public PixelTransactionDto createPurchase(PixelTransactionRequestDto requestDto) {
-        CountryDto countryDto = countryFeign.getCountryById(requestDto.getCountryTag());
+        CountryDto countryDto = countryFeign.getCountryByTag(requestDto.getCountryTag());
         Long countrySoldPixelNumber = countryDto.getSoldPixelNumber();
         Long countryRemainedPixelNumber = countryDto.getPixelNumber() - countrySoldPixelNumber;
         if (countryRemainedPixelNumber < requestDto.getPixelNumber()) {

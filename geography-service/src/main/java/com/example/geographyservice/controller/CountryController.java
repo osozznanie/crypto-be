@@ -28,9 +28,9 @@ public class CountryController {
         return countryService.save(requestDto);
     }
 
-    @GetMapping("/{id}")
-    public CountryDto getCountryById(@PathVariable String id) {
-        return countryService.getById(id);
+    @GetMapping("/{tag}")
+    public CountryDto getCountryByTag(@PathVariable String tag) {
+        return countryService.getByTag(tag);
     }
 
     @GetMapping

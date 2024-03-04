@@ -20,4 +20,6 @@ public interface CountryService {
     CountryStatsDto getCountryStats(String countryTag);
 
     void deleteById(String id);
+
+    CountryDto getByTag(String tag);
 }
