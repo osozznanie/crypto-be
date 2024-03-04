@@ -6,20 +6,18 @@ import com.example.userservice.service.UserService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+
+    @GetMapping("/hello")
+    public String get() {
+        return "Hello World";
+    }
 
     @PostMapping
     public UserDto addPixelTransaction(@RequestBody @Valid UserRequestDto requestDto) {
@@ -46,5 +44,10 @@ public class UserController {
     public String deletePixelTransaction(@PathVariable String id) {
         userService.deleteById(id);
         return "User with id = " + id + " is successfully removed";
+    }
+
+    @GetMapping("/feign-get-user")
+    public UserDto getUserByEmail(@RequestParam(value = "email") String email) {
+        return userService.findUserByEmail(email);
     }
 }

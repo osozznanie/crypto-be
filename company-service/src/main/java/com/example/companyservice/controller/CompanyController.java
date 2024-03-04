@@ -21,6 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class CompanyController {
     private final CompanyService companyService;
 
+    @GetMapping("/hello")
+    public String hello(){
+        return "Hello, World!";
+    }
+
     @PostMapping
     public CompanyDto addCompany(@RequestBody @Valid CompanyRequestDto requestDto) {
         return companyService.save(requestDto);

@@ -7,22 +7,42 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    public UserDto toDto(User user) {
+
+    public UserRequestDto toUserRequestDto(User user) {
+        UserRequestDto dto = new UserRequestDto();
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setUsername(user.getUsername());
+        dto.setPassword(user.getPassword());
+        return dto;
+    }
+
+    public UserDto toUserDto(User user) {
         UserDto dto = new UserDto();
         dto.setId(user.getId());
-        dto.setWalletAddress(user.getWalletAddress());
-        dto.setWalletBalance(user.getWalletBalance());
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setRole(user.getRole());
         return dto;
     }
 
     public void updateModelFromDto(User user, UserRequestDto requestDto) {
-        user.setWalletAddress(requestDto.getWalletAddress());
-        user.setWalletBalance(requestDto.getWalletBalance());
+        user.setUsername(requestDto.getUsername());
+        user.setPassword(requestDto.getPassword());
+        user.setEmail(requestDto.getEmail());
     }
 
     public User toModel(UserRequestDto requestDto) {
         User user = new User();
         updateModelFromDto(user, requestDto);
+        return user;
+    }
+
+    public User toModel(UserDto dto) {
+        User user = new User();
+        user.setId(dto.getId());
+        user.setUsername(dto.getUsername());
+        user.setPassword(dto.getEmail());
         return user;
     }
 }

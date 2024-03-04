@@ -39,7 +39,7 @@ public class CountryController {
 
     @PutMapping("/{id}")
     public CountryDto updateCountry(@PathVariable String id,
-                                        @RequestBody @Valid CountryRequestDto requestDto) {
+                                    @RequestBody @Valid CountryRequestDto requestDto) {
         return countryService.update(id, requestDto);
     }
 
