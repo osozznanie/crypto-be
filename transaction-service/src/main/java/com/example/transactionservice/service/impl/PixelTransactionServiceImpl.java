@@ -1,7 +1,11 @@
 package com.example.transactionservice.service.impl;
 
+import com.example.transactionservice.dto.request.CountryPurchaseRequestDto;
 import com.example.transactionservice.dto.request.PixelTransactionRequestDto;
+import com.example.transactionservice.dto.response.CountryDto;
 import com.example.transactionservice.dto.response.PixelTransactionDto;
+import com.example.transactionservice.exception.InvalidTransactionException;
+import com.example.transactionservice.feigns.CountryFeign;
 import com.example.transactionservice.mapper.PixelTransactionMapper;
 import com.example.transactionservice.model.PixelTransaction;
 import com.example.transactionservice.repository.PixelTransactionRepository;
@@ -10,17 +14,38 @@ import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class PixelTransactionServiceImpl implements PixelTransactionService {
     private final PixelTransactionRepository pixelTransactionRepository;
     private final PixelTransactionMapper pixelTransactionMapper;
+    private final CountryFeign countryFeign;
 
     @Override
     public PixelTransactionDto save(PixelTransactionRequestDto requestDto) {
         PixelTransaction pixelTransaction = pixelTransactionMapper.toModel(requestDto);
         return pixelTransactionMapper.toDto(pixelTransactionRepository.save(pixelTransaction));
+    }
+
+    @Override
+    @Transactional
+    public PixelTransactionDto createPurchase(PixelTransactionRequestDto requestDto) {
+        CountryDto countryDto = countryFeign.getCountryById(requestDto.getCountryTag());
+        Long countrySoldPixelNumber = countryDto.getSoldPixelNumber();
+        Long countryRemainedPixelNumber = countryDto.getPixelNumber() - countrySoldPixelNumber;
+        if (countryRemainedPixelNumber < requestDto.getPixelNumber()) {
+            throw new InvalidTransactionException("The remained country pixels number is less than the set amount");
+        } else if (countryRemainedPixelNumber.equals(requestDto.getPixelNumber())) {
+            requestDto.setTransactionType("Full Country");
+        } else {
+            requestDto.setTransactionType("Pixels");
+        }
+        countryDto.setSoldPixelNumber(countrySoldPixelNumber + requestDto.getPixelNumber());
+        countryFeign.updateCountryForPurchase(requestDto.getCountryTag(),
+                new CountryPurchaseRequestDto(countryDto.getContinentId(), requestDto.getPixelNumber()));
+        return save(requestDto);
     }
 
     @Override

@@ -8,19 +8,18 @@ import lombok.Data;
 @Data
 public class PixelTransactionRequestDto {
     @NotBlank
-    private String senderCompanyId;
+    private String senderCompanyId = "TestCompany-ID";
     @NotBlank
     private String receiverCompanyId;
     @NotBlank
-    private String countryId;
+    private String countryTag;
     @NotBlank
-    private String currency;
+    private String currency = "USD";
     @NotNull
-    private BigDecimal price;
+    private BigDecimal price = new BigDecimal(20);
     @NotNull
     private Long pixelNumber;
-    @NotBlank
     private String transactionType;
     @NotBlank
-    private String transactionId;
+    private String transactionId = "transaction-ID";
 }

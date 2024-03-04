@@ -1,12 +1,17 @@
 package com.example.geographyservice.service.impl;
 
+import com.example.geographyservice.dto.request.ContinentPurchaseRequestDto;
+import com.example.geographyservice.dto.request.ContinentRequestDto;
+import com.example.geographyservice.dto.request.CountryPurchaseRequestDto;
 import com.example.geographyservice.dto.request.CountryRequestDto;
+import com.example.geographyservice.dto.response.ContinentDto;
 import com.example.geographyservice.dto.response.CountryDto;
 import com.example.geographyservice.dto.response.CountryStatsDto;
 import com.example.geographyservice.mapper.CountryMapper;
 import com.example.geographyservice.model.Country;
 import com.example.geographyservice.model.Pixel;
 import com.example.geographyservice.repository.CountryRepository;
+import com.example.geographyservice.service.ContinentService;
 import com.example.geographyservice.service.CountryService;
 import com.example.geographyservice.service.PixelService;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CountryServiceImpl implements CountryService {
     private final CountryRepository countryRepository;
+    private final ContinentService continentService;
     private final PixelService pixelService;
     private final CountryMapper countryMapper;
 
@@ -51,8 +57,31 @@ public class CountryServiceImpl implements CountryService {
         Country countryForUpdate = countryRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("No country is found by id = " + id)
         );
+        Long countryPixelNumber = countryForUpdate.getPixelNumber();
         countryMapper.updateModelFromDto(countryForUpdate, requestDto);
         countryRepository.save(countryForUpdate);
+        if (!countryPixelNumber.equals(requestDto.getPixelNumber())) {
+            ContinentDto continentDto = continentService.getById(requestDto.getContinentId());
+            Long continentUpdatedPixelNumber = continentDto.getPixelNumber()
+                    + (countryPixelNumber < requestDto.getPixelNumber()
+                    ? requestDto.getPixelNumber() : -requestDto.getPixelNumber());
+            continentService.update(requestDto.getContinentId(),
+                    new ContinentRequestDto(continentDto.getName(), continentUpdatedPixelNumber));
+        }
+        return countryMapper.toDto(countryForUpdate);
+    }
+
+    @Override
+    @Transactional
+    public CountryDto updateForPurchase(String tag, CountryPurchaseRequestDto requestDto) {
+        Country countryForUpdate = countryRepository.findByTag(tag).orElseThrow(
+                () -> new EntityNotFoundException("No country is found by tag = " + tag)
+        );
+        countryForUpdate.setSoldPixelNumber(countryForUpdate.getSoldPixelNumber() + requestDto.getPixelNumber());
+        countryRepository.save(countryForUpdate);
+        continentService.updateForPurchase(requestDto.getContinentId(),
+                new ContinentPurchaseRequestDto(requestDto.getPixelNumber()));
+        pixelService.setCompanyToPixels(requestDto.getCompanyId(), tag, requestDto.getPixelNumber());
         return countryMapper.toDto(countryForUpdate);
     }
 

@@ -1,5 +1,6 @@
 package com.example.geographyservice.controller;
 
+import com.example.geographyservice.dto.request.CountryPurchaseRequestDto;
 import com.example.geographyservice.dto.request.CountryRequestDto;
 import com.example.geographyservice.dto.response.CountryDto;
 import com.example.geographyservice.dto.response.CountryStatsDto;
@@ -41,6 +42,12 @@ public class CountryController {
     public CountryDto updateCountry(@PathVariable String id,
                                     @RequestBody @Valid CountryRequestDto requestDto) {
         return countryService.update(id, requestDto);
+    }
+
+    @PutMapping("/{tag}/sale")
+    public CountryDto updateCountry(@PathVariable String tag,
+                                    @RequestBody @Valid CountryPurchaseRequestDto requestDto) {
+        return countryService.updateForPurchase(tag, requestDto);
     }
 
     @GetMapping("/stats/{tag}")

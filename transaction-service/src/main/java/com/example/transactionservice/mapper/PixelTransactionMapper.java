@@ -12,7 +12,7 @@ public class PixelTransactionMapper {
         dto.setId(pixelTransaction.getId());
         dto.setSenderCompanyId(pixelTransaction.getSenderCompanyId());
         dto.setReceiverCompanyId(pixelTransaction.getReceiverCompanyId());
-        dto.setCountryId(pixelTransaction.getCountryId());
+        dto.setCountryTag(pixelTransaction.getCountryTag());
         dto.setCurrency(pixelTransaction.getCurrency());
         dto.setPrice(pixelTransaction.getPrice());
         dto.setPixelNumber(pixelTransaction.getPixelNumber());
@@ -25,7 +25,7 @@ public class PixelTransactionMapper {
     public void updateModelFromDto(PixelTransaction pixelTransaction, PixelTransactionRequestDto dto) {
         pixelTransaction.setSenderCompanyId(dto.getSenderCompanyId());
         pixelTransaction.setReceiverCompanyId(dto.getReceiverCompanyId());
-        pixelTransaction.setCountryId(dto.getCountryId());
+        pixelTransaction.setCountryTag(dto.getCountryTag());
         pixelTransaction.setCurrency(dto.getCurrency());
         pixelTransaction.setPrice(dto.getPrice());
         pixelTransaction.setPixelNumber(dto.getPixelNumber());
