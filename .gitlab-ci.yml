@@ -5,6 +5,8 @@ stages:
 build:
   stage: build
   image: maven:3.6.3-jdk-11
+  tags:
+    - deploy-crypto-world-be
   script:
     - mvn clean package
     - sudo docker build -t cryptoworld/eureka-server:prod ./eureka-server/
