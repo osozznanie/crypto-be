@@ -22,13 +22,6 @@ services:
       - eureka-server
       - api-gateway
 
-  authentication-service:
-    image: cryptoworld/authentication-service:prod
-    container_name: authentication-service
-    depends_on:
-      - eureka-server
-      - api-gateway
-
   company-service:
     image: cryptoworld/company-service:prod
     container_name: company-service

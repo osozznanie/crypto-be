@@ -12,7 +12,6 @@ build:
     - sudo docker build -t cryptoworld/eureka-server:prod ./eureka-server/
     - sudo docker build -t cryptoworld/api-gateway:prod ./api-gateway/
     - sudo docker build -t cryptoworld/analytic-service:prod ./analytic-service/
-    - sudo docker build -t cryptoworld/authentication-service:prod ./authentication-service/
     - sudo docker build -t cryptoworld/company-service:prod ./company-service/
     - sudo docker build -t cryptoworld/geography-service:prod ./geography-service/
     - sudo docker build -t cryptoworld/logging-service:prod ./logging-service/
