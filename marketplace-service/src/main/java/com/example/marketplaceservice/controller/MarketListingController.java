@@ -2,6 +2,7 @@ package com.example.marketplaceservice.controller;
 
 import com.example.marketplaceservice.dto.request.MarketListingRequestDto;
 import com.example.marketplaceservice.dto.response.MarketListingDto;
+import com.example.marketplaceservice.feigns.UserFeign;
 import com.example.marketplaceservice.service.MarketListingService;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MarketListingController {
     private final MarketListingService marketListingService;
+    private final UserFeign userFeign;
 
     @PostMapping
     public MarketListingDto addMarketListing(@RequestBody @Valid MarketListingRequestDto requestDto) {

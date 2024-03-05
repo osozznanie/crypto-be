@@ -14,4 +14,6 @@ public interface MarketListingService {
     MarketListingDto update(String id, MarketListingRequestDto requestDto);
 
     void deleteById(String id);
+
+    MarketListingDto createMarketListing(MarketListingRequestDto requestDto);
 }

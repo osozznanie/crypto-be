@@ -15,7 +15,7 @@ public class CompanyMapper {
         dto.setLogoLink(company.getLogoLink());
         dto.setWebsiteLink(company.getWebsiteLink());
         dto.setDescription(company.getDescription());
-        dto.setPixelNumber(company.getPixelNumber());
+        dto.setPixelNumber(company.getPixelNumbers());
         return dto;
     }
 
@@ -25,7 +25,7 @@ public class CompanyMapper {
         company.setLogoLink(dto.getLogoLink());
         company.setWebsiteLink(dto.getWebsiteLink());
         company.setDescription(dto.getDescription());
-        company.setPixelNumber(dto.getPixelNumber());
+        company.setPixelNumbers(dto.getPixelNumber());
     }
 
     public Company toModel(CompanyRequestDto dto) {

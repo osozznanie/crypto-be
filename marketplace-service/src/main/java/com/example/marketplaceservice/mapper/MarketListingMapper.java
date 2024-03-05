@@ -14,7 +14,7 @@ public class MarketListingMapper {
         dto.setCountryId(marketListing.getCountryId());
         dto.setCurrency(marketListing.getCurrency());
         dto.setPrice(marketListing.getPrice());
-        dto.setPixelNumber(marketListing.getPixelNumber());
+        dto.setPixelNumbers(marketListing.getPixelNumbers());
         dto.setPublishDate(marketListing.getPublishDate());
         return dto;
     }
@@ -24,7 +24,7 @@ public class MarketListingMapper {
         marketListing.setCountryId(dto.getCountryId());
         marketListing.setCurrency(dto.getCurrency());
         marketListing.setPrice(dto.getPrice());
-        marketListing.setPixelNumber(dto.getPixelNumber());
+        marketListing.setPixelNumbers(dto.getPixelNumber());
     }
 
     public MarketListing toModel(MarketListingRequestDto dto) {

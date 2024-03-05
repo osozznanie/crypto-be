@@ -3,6 +3,8 @@ package com.example.marketplaceservice.model;
 import jakarta.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,6 +17,6 @@ public class MarketListing {
     private String countryId;
     private String currency;
     private BigDecimal price;
-    private Long pixelNumber;
+    private Long pixelNumbers;
     private LocalDateTime publishDate;
 }
