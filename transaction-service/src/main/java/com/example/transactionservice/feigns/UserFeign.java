@@ -1,6 +1,6 @@
 package com.example.transactionservice.feigns;
 
-import com.example.userservice.model.User;
+import com.example.transactionservice.dto.response.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserFeign {
 
     @GetMapping("/api/users/feign-get-user")
-    User getUserByEmail(@RequestParam(value = "email") String email);
+    UserDto getUserByEmail(@RequestParam(value = "email") String email);
 }

@@ -1,11 +1,13 @@
 package com.example.transactionservice.security;
 
+import com.example.transactionservice.dto.response.UserDto;
 import com.example.transactionservice.feigns.UserFeign;
-import com.example.userservice.model.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,9 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import java.io.IOException;
-import java.util.List;
 
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
@@ -44,7 +43,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
 
         String userEmail = jwtTokenUtils.getUsernameFromToken(token);
-        User loggedInUser = userFeign.getUserByEmail(userEmail);
+        UserDto loggedInUser = userFeign.getUserByEmail(userEmail);
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                 userEmail, null, List.of(new SimpleGrantedAuthority(loggedInUser.getRole().name())));
