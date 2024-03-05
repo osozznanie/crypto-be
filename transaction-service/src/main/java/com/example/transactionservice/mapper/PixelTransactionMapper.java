@@ -30,6 +30,7 @@ public class PixelTransactionMapper {
         pixelTransaction.setPrice(dto.getPrice());
         pixelTransaction.setPixelNumber(dto.getPixelNumber());
         pixelTransaction.setTransactionType(dto.getTransactionType());
+        pixelTransaction.setTransactionId(dto.getTransactionId());
     }
 
     public PixelTransaction toModel(PixelTransactionRequestDto dto) {

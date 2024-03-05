@@ -3,7 +3,6 @@ package com.example.geographyservice.service.impl;
 import com.example.geographyservice.model.Pixel;
 import com.example.geographyservice.repository.PixelRepository;
 import com.example.geographyservice.service.PixelService;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -37,17 +36,17 @@ public class PixelServiceImpl implements PixelService {
 
     @Override
     public List<Pixel> setCompanyToPixels(String companyId, String countryTag, Long pixelNumber) {
-        List<Pixel> companyPixels = new ArrayList<>();
         List<Pixel> countryPixels = getAllPixelsByCountryTag(countryTag);
+        long pixelsUpdated = 0;
         for (Pixel countryPixel : countryPixels) {
-            if (countryPixel.getCompanyId() == null) {
-                for (int j = 0; j < pixelNumber; j++) {
-                    companyPixels.get(j).setCompanyId(companyId);
-                    companyPixels.add(companyPixels.get(j));
-                }
+            if (countryPixel.getCompanyId() == null && pixelsUpdated < pixelNumber) {
+                countryPixel.setCompanyId(companyId);
+                pixelsUpdated++;
+            }
+            if (pixelsUpdated >= pixelNumber) {
                 break;
             }
         }
-        return pixelRepository.saveAll(companyPixels);
+        return pixelRepository.saveAll(countryPixels);
     }
 }

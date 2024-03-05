@@ -12,5 +12,7 @@ public class CountryPurchaseRequestDto {
     @NotNull
     private String continentId;
     @NotNull
+    private String companyId;
+    @NotNull
     private Long pixelNumber;
 }

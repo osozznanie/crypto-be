@@ -11,6 +11,7 @@ import com.example.transactionservice.model.PixelTransaction;
 import com.example.transactionservice.repository.PixelTransactionRepository;
 import com.example.transactionservice.service.PixelTransactionService;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,12 +27,14 @@ public class PixelTransactionServiceImpl implements PixelTransactionService {
     @Override
     public PixelTransactionDto save(PixelTransactionRequestDto requestDto) {
         PixelTransaction pixelTransaction = pixelTransactionMapper.toModel(requestDto);
+        pixelTransaction.setTransactionDate(LocalDateTime.now());
         return pixelTransactionMapper.toDto(pixelTransactionRepository.save(pixelTransaction));
     }
 
     @Override
     @Transactional
     public PixelTransactionDto createPurchase(PixelTransactionRequestDto requestDto) {
+        requestDto.setReceiverCompanyId("CryptoWorld");
         CountryDto countryDto = countryFeign.getCountryByTag(requestDto.getCountryTag());
         Long countrySoldPixelNumber = countryDto.getSoldPixelNumber();
         Long countryRemainedPixelNumber = countryDto.getPixelNumber() - countrySoldPixelNumber;
@@ -44,7 +47,8 @@ public class PixelTransactionServiceImpl implements PixelTransactionService {
         }
         countryDto.setSoldPixelNumber(countrySoldPixelNumber + requestDto.getPixelNumber());
         countryFeign.updateCountryForPurchase(requestDto.getCountryTag(),
-                new CountryPurchaseRequestDto(countryDto.getContinentId(), requestDto.getPixelNumber()));
+                new CountryPurchaseRequestDto(countryDto.getContinentId(),
+                        requestDto.getSenderCompanyId(), requestDto.getPixelNumber()));
         return save(requestDto);
     }
 
