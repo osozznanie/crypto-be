@@ -1,11 +1,13 @@
 package com.example.geographyservice.service.impl;
 
+import com.example.geographyservice.dto.request.ContinentPurchaseRequestDto;
 import com.example.geographyservice.dto.request.ContinentRequestDto;
 import com.example.geographyservice.dto.response.ContinentDto;
 import com.example.geographyservice.mapper.ContinentMapper;
 import com.example.geographyservice.model.Continent;
 import com.example.geographyservice.repository.ContinentRepository;
 import com.example.geographyservice.service.ContinentService;
+import com.example.geographyservice.service.WorldService;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ContinentServiceImpl implements ContinentService {
     private final ContinentRepository continentRepository;
     private final ContinentMapper continentMapper;
+    private final WorldService worldService;
 
     @Override
     @Transactional
@@ -45,8 +48,28 @@ public class ContinentServiceImpl implements ContinentService {
         Continent continentForUpdate = continentRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("No continent is found by id = " + id)
         );
+        Long continentPixelNumber = continentForUpdate.getPixelNumber();
         continentMapper.updateModelFromDto(continentForUpdate, requestDto);
         continentRepository.save(continentForUpdate);
+        if (!continentPixelNumber.equals(requestDto.getPixelNumber())) {
+            if (continentPixelNumber < requestDto.getPixelNumber()) {
+                worldService.setPixelNumber(worldService.getTotalPixelNumber() + requestDto.getPixelNumber());
+            } else {
+                worldService.setPixelNumber(worldService.getTotalPixelNumber() - requestDto.getPixelNumber());
+            }
+        }
+        return continentMapper.toDto(continentForUpdate);
+    }
+
+    @Override
+    @Transactional
+    public ContinentDto updateForPurchase(String id, ContinentPurchaseRequestDto requestDto) {
+        Continent continentForUpdate = continentRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("No continent is found by id = " + id)
+        );
+        continentForUpdate.setSoldPixelNumber(continentForUpdate.getSoldPixelNumber() + requestDto.getPixelNumber());
+        continentRepository.save(continentForUpdate);
+        worldService.addSoldPixels(requestDto.getPixelNumber());
         return continentMapper.toDto(continentForUpdate);
     }
 

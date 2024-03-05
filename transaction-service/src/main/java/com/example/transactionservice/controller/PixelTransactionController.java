@@ -26,6 +26,11 @@ public class PixelTransactionController {
         return pixelTransactionService.save(requestDto);
     }
 
+    @PostMapping("/country-pixel-purchase")
+    public PixelTransactionDto addPixelPurchase(@RequestBody @Valid PixelTransactionRequestDto requestDto) {
+        return pixelTransactionService.createPurchase(requestDto);
+    }
+
     @GetMapping("/{id}")
     public PixelTransactionDto getPixelTransactionById(@PathVariable String id) {
         return pixelTransactionService.getById(id);

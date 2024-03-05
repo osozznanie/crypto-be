@@ -1,5 +1,6 @@
 package com.example.geographyservice.service;
 
+import com.example.geographyservice.dto.request.CountryPurchaseRequestDto;
 import com.example.geographyservice.dto.request.CountryRequestDto;
 import com.example.geographyservice.dto.response.CountryDto;
 import com.example.geographyservice.dto.response.CountryStatsDto;
@@ -14,7 +15,11 @@ public interface CountryService {
 
     CountryDto update(String id, CountryRequestDto requestDto);
 
+    CountryDto updateForPurchase(String tag, CountryPurchaseRequestDto requestDto);
+
     CountryStatsDto getCountryStats(String countryTag);
 
     void deleteById(String id);
+
+    CountryDto getByTag(String tag);
 }

@@ -28,4 +28,25 @@ public class PixelServiceImpl implements PixelService {
     public List<Pixel> getAllPixelsByCountryTag(String countryTag) {
         return pixelRepository.findAllByCountryTag(countryTag);
     }
+
+    @Override
+    public List<Pixel> getAllPixelsByCompanyId(String companyId) {
+        return pixelRepository.findAllByCompanyId(companyId);
+    }
+
+    @Override
+    public List<Pixel> setCompanyToPixels(String companyId, String countryTag, Long pixelNumber) {
+        List<Pixel> countryPixels = getAllPixelsByCountryTag(countryTag);
+        long pixelsUpdated = 0;
+        for (Pixel countryPixel : countryPixels) {
+            if (countryPixel.getCompanyId() == null && pixelsUpdated < pixelNumber) {
+                countryPixel.setCompanyId(companyId);
+                pixelsUpdated++;
+            }
+            if (pixelsUpdated >= pixelNumber) {
+                break;
+            }
+        }
+        return pixelRepository.saveAll(countryPixels);
+    }
 }

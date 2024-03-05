@@ -5,5 +5,7 @@ public interface WorldService {
 
     Long getTotalSoldPixelNumber();
 
+    void setPixelNumber(Long pixelNumber);
+
     void addSoldPixels(Long soldPixelsNumber);
 }

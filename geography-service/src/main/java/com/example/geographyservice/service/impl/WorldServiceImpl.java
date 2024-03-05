@@ -37,6 +37,12 @@ public class WorldServiceImpl implements WorldService {
     }
 
     @Override
+    public void setPixelNumber(Long pixelNumber) {
+        world.setTotalPixelNumber(pixelNumber);
+        worldRepository.save(world);
+    }
+
+    @Override
     public void addSoldPixels(Long soldPixelNumber) {
         world.setSoldPixelNumber(world.getSoldPixelNumber() + soldPixelNumber);
         worldRepository.save(world);

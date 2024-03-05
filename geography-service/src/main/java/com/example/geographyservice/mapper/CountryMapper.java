@@ -13,7 +13,7 @@ public class CountryMapper {
         dto.setId(country.getId());
         dto.setName(country.getName());
         dto.setTag(country.getTag());
-        dto.setContinentId(country.getId());
+        dto.setContinentId(country.getContinentId());
         dto.setPixelNumber(country.getPixelNumber());
         dto.setSoldPixelNumber(country.getSoldPixelNumber());
         return dto;
@@ -22,6 +22,7 @@ public class CountryMapper {
     public void updateModelFromDto(Country country, CountryRequestDto dto) {
         country.setName(dto.getName());
         country.setTag(dto.getTag());
+        country.setContinentId(dto.getContinentId());
         country.setPixelNumber(dto.getPixelNumber());
     }
 

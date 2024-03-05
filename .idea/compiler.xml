@@ -8,7 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="analytic-service" />
-        <module name="authentication-service" />
         <module name="geography-service" />
         <module name="api-gateway" />
         <module name="transaction-service" />
@@ -21,6 +20,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="apiGateway" target="17" />
+      <module name="authentication-service" target="17" />
       <module name="eureka-service" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -9,7 +9,7 @@ public class PixelTransactionDto {
     private String id;
     private String senderCompanyId;
     private String receiverCompanyId;
-    private String countryId;
+    private String countryTag;
     private String currency;
     private BigDecimal price;
     private Long pixelNumber;

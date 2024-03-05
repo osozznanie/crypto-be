@@ -7,6 +7,8 @@ import java.util.List;
 public interface PixelTransactionService {
     PixelTransactionDto save(PixelTransactionRequestDto requestDto);
 
+    PixelTransactionDto createPurchase(PixelTransactionRequestDto requestDto);
+
     PixelTransactionDto getById(String id);
 
     List<PixelTransactionDto> getAll();

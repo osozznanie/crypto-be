@@ -9,17 +9,15 @@ import lombok.Data;
 public class PixelTransactionRequestDto {
     @NotBlank
     private String senderCompanyId;
-    @NotBlank
     private String receiverCompanyId;
     @NotBlank
-    private String countryId;
+    private String countryTag;
     @NotBlank
     private String currency;
     @NotNull
     private BigDecimal price;
     @NotNull
     private Long pixelNumber;
-    @NotBlank
     private String transactionType;
     @NotBlank
     private String transactionId;

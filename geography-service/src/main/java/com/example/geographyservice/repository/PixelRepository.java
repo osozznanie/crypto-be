@@ -8,4 +8,6 @@ import org.springframework.data.mongodb.repository.Query;
 public interface PixelRepository extends MongoRepository<Pixel, String> {
     @Query("{ 'id' : { $regex: ?0, $options: 'i' } }")
     List<Pixel> findAllByCountryTag(String tag);
+
+    List<Pixel> findAllByCompanyId(String companyId);
 }

@@ -1,5 +1,6 @@
 package com.example.geographyservice.service;
 
+import com.example.geographyservice.dto.request.ContinentPurchaseRequestDto;
 import com.example.geographyservice.dto.request.ContinentRequestDto;
 import com.example.geographyservice.dto.response.ContinentDto;
 import java.util.List;
@@ -12,6 +13,8 @@ public interface ContinentService {
     List<ContinentDto> getAll();
 
     ContinentDto update(String id, ContinentRequestDto requestDto);
+
+    ContinentDto updateForPurchase(String id, ContinentPurchaseRequestDto requestDto);
 
     void deleteById(String id);
 }
