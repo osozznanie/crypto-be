@@ -4,7 +4,7 @@ stages:
 
 build:
   stage: build
-  image: maven:3.6.3-jdk-11
+  image: maven:3.8.4-openjdk-17
   tags:
     - deploy-crypto-world-be
   script:
