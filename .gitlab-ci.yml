@@ -1,29 +1,45 @@
 stages:
   - build
+  - docker-build
   - deploy
+
+variables:
+  MAVEN_OPTS: "-Xmx1024m -XX:MaxPermSize=256m"
+  DOCKER_DRIVER: overlay2
+
+cache:
+  paths:
+    - .m2/repository
 
 build:
   stage: build
   image: maven:3.8.4-openjdk-17
   tags:
     - deploy-crypto-world-be
-  cache:
-    paths:
-      - .m2/repository
   script:
-    - mvn clean package -DskipTests
-    - sudo docker build -t cryptoworld/eureka-server:prod ./eureka-server/
-    - sudo docker build -t cryptoworld/api-gateway:prod ./api-gateway/
-    - sudo docker build -t cryptoworld/analytic-service:prod ./analytic-service/
-    - sudo docker build -t cryptoworld/company-service:prod ./company-service/
-    - sudo docker build -t cryptoworld/geography-service:prod ./geography-service/
-    - sudo docker build -t cryptoworld/logging-service:prod ./logging-service/
-    - sudo docker build -t cryptoworld/marketplace-service:prod ./marketplace-service/
-    - sudo docker build -t cryptoworld/transaction-service:prod ./transaction-service/
-    - sudo docker build -t cryptoworld/user-service:prod ./user-service/
+    - mvn clean package -DskipTests=true
   artifacts:
     paths:
       - target/
+    expire_in: 1 hour
+
+docker-build:
+  stage: docker-build
+  image: docker:19.03.12
+  services:
+    - docker:dind
+  script:
+    - docker build -t cryptoworld/eureka-server:prod ./eureka-server/
+    - docker build -t cryptoworld/api-gateway:prod ./api-gateway/
+    - docker build -t cryptoworld/analytic-service:prod ./analytic-service/
+    - docker build -t cryptoworld/company-service:prod ./company-service/
+    - docker build -t cryptoworld/geography-service:prod ./geography-service/
+    - docker build -t cryptoworld/logging-service:prod ./logging-service/
+    - docker build -t cryptoworld/marketplace-service:prod ./marketplace-service/
+    - docker build -t cryptoworld/transaction-service:prod ./transaction-service/
+    - docker build -t cryptoworld/user-service:prod ./user-service/
+  only:
+    - branches
 
 deploy:
   stage: deploy
@@ -31,6 +47,6 @@ deploy:
   services:
     - docker:dind
   script:
-    - sudo docker compose up -d
+    - docker compose up -d
   only:
     - dev
