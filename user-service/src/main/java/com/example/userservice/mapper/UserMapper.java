@@ -23,6 +23,7 @@ public class UserMapper {
         dto.setUsername(user.getUsername());
         dto.setEmail(user.getEmail());
         dto.setRole(user.getRole());
+        dto.setPixelNumber(user.getPixelNumber());
         return dto;
     }
 
@@ -43,6 +44,8 @@ public class UserMapper {
         user.setId(dto.getId());
         user.setUsername(dto.getUsername());
         user.setPassword(dto.getEmail());
+        user.setEmail(dto.getEmail());
+        user.setPixelNumber(dto.getPixelNumber());
         return user;
     }
 }

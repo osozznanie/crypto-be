@@ -9,6 +9,8 @@ public class PixelTransactionDto {
     private String id;
     private String senderCompanyId;
     private String receiverCompanyId;
+    private String senderUserEmail;
+    private String receiverUserEmail;
     private String countryTag;
     private String currency;
     private BigDecimal price;

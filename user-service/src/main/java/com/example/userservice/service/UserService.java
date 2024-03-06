@@ -19,4 +19,6 @@ public interface UserService {
     UserDto findByUsername(String username);
 
     UserDto findUserByEmail(String email);
+
+    UserDto updatePixelNumber(String email, Long pixelNumber);
 }

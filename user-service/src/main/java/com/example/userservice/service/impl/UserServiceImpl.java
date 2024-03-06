@@ -70,4 +70,11 @@ public class UserServiceImpl implements UserService {
     public UserDto findUserByEmail(String email) {
         return userMapper.toUserDto(userRepository.findByEmail(email));
     }
+
+    @Override
+    public UserDto updatePixelNumber(String email, Long pixelNumber) {
+        User user = userRepository.findByEmail(email);
+        user.setPixelNumber(pixelNumber);
+        return userMapper.toUserDto(userRepository.save(user));
+    }
 }

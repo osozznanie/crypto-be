@@ -2,17 +2,22 @@ package com.example.transactionservice.service.impl;
 
 import com.example.transactionservice.dto.request.CountryPurchaseRequestDto;
 import com.example.transactionservice.dto.request.PixelTransactionRequestDto;
+import com.example.transactionservice.dto.request.UserUpdateRequestDto;
 import com.example.transactionservice.dto.response.CountryDto;
 import com.example.transactionservice.dto.response.PixelTransactionDto;
+import com.example.transactionservice.dto.response.UserDto;
 import com.example.transactionservice.exception.InvalidTransactionException;
 import com.example.transactionservice.feigns.CountryFeign;
+import com.example.transactionservice.feigns.UserFeign;
 import com.example.transactionservice.mapper.PixelTransactionMapper;
 import com.example.transactionservice.model.PixelTransaction;
 import com.example.transactionservice.repository.PixelTransactionRepository;
 import com.example.transactionservice.service.PixelTransactionService;
 import jakarta.persistence.EntityNotFoundException;
+
 import java.time.LocalDateTime;
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +28,7 @@ public class PixelTransactionServiceImpl implements PixelTransactionService {
     private final PixelTransactionRepository pixelTransactionRepository;
     private final PixelTransactionMapper pixelTransactionMapper;
     private final CountryFeign countryFeign;
+    private final UserFeign userFeign;
 
     @Override
     public PixelTransactionDto save(PixelTransactionRequestDto requestDto) {
@@ -36,6 +42,9 @@ public class PixelTransactionServiceImpl implements PixelTransactionService {
     public PixelTransactionDto createPurchase(PixelTransactionRequestDto requestDto) {
         requestDto.setReceiverCompanyId("CryptoWorld");
         CountryDto countryDto = countryFeign.getCountryByTag(requestDto.getCountryTag());
+        UserDto userDto = userFeign.getUserByEmail(requestDto.getSenderUserEmail());
+        userDto.setPixelNumber(userDto.getPixelNumber() + requestDto.getPixelNumber());
+        userFeign.updateUserPixelNumber(new UserUpdateRequestDto(userDto.getEmail(), userDto.getPixelNumber()));
         Long countrySoldPixelNumber = countryDto.getSoldPixelNumber();
         Long countryRemainedPixelNumber = countryDto.getPixelNumber() - countrySoldPixelNumber;
         if (countryRemainedPixelNumber < requestDto.getPixelNumber()) {
@@ -48,7 +57,7 @@ public class PixelTransactionServiceImpl implements PixelTransactionService {
         countryDto.setSoldPixelNumber(countrySoldPixelNumber + requestDto.getPixelNumber());
         countryFeign.updateCountryForPurchase(requestDto.getCountryTag(),
                 new CountryPurchaseRequestDto(countryDto.getContinentId(),
-                        requestDto.getSenderCompanyId(), requestDto.getPixelNumber()));
+                        requestDto.getSenderCompanyId(), requestDto.getSenderUserEmail(), requestDto.getPixelNumber()));
         return save(requestDto);
     }
 

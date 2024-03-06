@@ -1,9 +1,11 @@
 package com.example.marketplaceservice.service.impl;
 
 import com.example.marketplaceservice.dto.request.MarketListingRequestDto;
-import com.example.marketplaceservice.dto.response.CompanyDto;
 import com.example.marketplaceservice.dto.response.MarketListingDto;
-import com.example.marketplaceservice.feigns.CompanyFeign;
+import com.example.marketplaceservice.dto.response.PixelDto;
+import com.example.marketplaceservice.dto.response.UserDto;
+import com.example.marketplaceservice.feigns.PixelFeign;
+import com.example.marketplaceservice.feigns.UserFeign;
 import com.example.marketplaceservice.mapper.MarketListingMapper;
 import com.example.marketplaceservice.model.MarketListing;
 import com.example.marketplaceservice.repository.MarketListingRepository;
@@ -21,7 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class MarketListingServiceImpl implements MarketListingService {
     private final MarketListingRepository marketListingRepository;
     private final MarketListingMapper marketListingMapper;
-    private final CompanyFeign companyFeign;
+    private final PixelFeign pixelFeign;
+    private final UserFeign userFeign;
 
     @Override
     public MarketListingDto save(MarketListingRequestDto requestDto) {
@@ -64,17 +67,22 @@ public class MarketListingServiceImpl implements MarketListingService {
     @Override
     @Transactional
     public MarketListingDto createMarketListing(MarketListingRequestDto requestDto) {
-        CompanyDto companyDto = companyFeign.getCompanyById(requestDto.getCompanyId());
+        UserDto userDto = userFeign.getUserByEmail(requestDto.getUserEmail());
 
-        if (companyDto.getPixelNumber() < requestDto.getPixelNumber()) {
+        if (userDto.getPixelNumber() < requestDto.getPixelIds().size()) {
             throw new InvalidRequestStateException("The company doesn't have enough pixels to list for sale");
         }
 
-        Long newPixelNumber = companyDto.getPixelNumber() - requestDto.getPixelNumber();
+        MarketListingDto marketListingDto = save(requestDto);
 
-        companyDto.setPixelNumber(newPixelNumber);
-        companyFeign.updateCompanyPixelNumber(requestDto.getCompanyId(), companyDto);
+        List<PixelDto> pixelDtos = pixelFeign.getAllPixelsByIds(requestDto.getPixelIds());
 
-        return save(requestDto);
+        pixelDtos.forEach(
+                pixelDto -> pixelDto.setMarketListingId(marketListingDto.getId())
+        );
+
+        pixelFeign.saveAllPixels(pixelDtos);
+
+        return marketListingDto;
     }
 }

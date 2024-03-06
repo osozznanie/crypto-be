@@ -10,7 +10,7 @@ public class MarketListingMapper {
     public MarketListingDto toDto(MarketListing marketListing) {
         MarketListingDto dto = new MarketListingDto();
         dto.setId(marketListing.getId());
-        dto.setCompanyId(marketListing.getCompanyId());
+        dto.setUserEmail(marketListing.getUserEmail());
         dto.setCountryId(marketListing.getCountryId());
         dto.setCurrency(marketListing.getCurrency());
         dto.setPrice(marketListing.getPrice());
@@ -20,11 +20,11 @@ public class MarketListingMapper {
     }
 
     public void updateModelFromDto(MarketListing marketListing, MarketListingRequestDto dto) {
-        marketListing.setCompanyId(dto.getCompanyId());
+        marketListing.setUserEmail(dto.getUserEmail());
         marketListing.setCountryId(dto.getCountryId());
         marketListing.setCurrency(dto.getCurrency());
         marketListing.setPrice(dto.getPrice());
-        marketListing.setPixelNumbers(dto.getPixelNumber());
+        marketListing.setPixelNumbers((long) dto.getPixelIds().size());
     }
 
     public MarketListing toModel(MarketListingRequestDto dto) {

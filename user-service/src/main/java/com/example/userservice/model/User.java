@@ -22,4 +22,5 @@ public class User {
     private String email;
     private ERole role;
     private String bc32SecretKeyForGeneratingTotp;
+    private Long pixelNumber = 0l;
 }

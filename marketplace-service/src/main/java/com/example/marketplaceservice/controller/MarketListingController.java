@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MarketListingController {
     private final MarketListingService marketListingService;
-    private final UserFeign userFeign;
 
     @PostMapping
     public MarketListingDto addMarketListing(@RequestBody @Valid MarketListingRequestDto requestDto) {
@@ -48,5 +47,10 @@ public class MarketListingController {
     public String deleteMarketListing(@PathVariable String id) {
         marketListingService.deleteById(id);
         return String.format("Market listing with id = %s is successfully removed", id);
+    }
+
+    @PostMapping("/create-market-listing")
+    public MarketListingDto createMarketListing(@RequestBody @Valid MarketListingRequestDto requestDto) {
+        return marketListingService.createMarketListing(requestDto);
     }
 }

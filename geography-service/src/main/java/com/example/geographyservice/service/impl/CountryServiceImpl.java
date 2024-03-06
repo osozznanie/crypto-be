@@ -81,7 +81,7 @@ public class CountryServiceImpl implements CountryService {
         countryRepository.save(countryForUpdate);
         continentService.updateForPurchase(requestDto.getContinentId(),
                 new ContinentPurchaseRequestDto(requestDto.getPixelNumber()));
-        pixelService.setCompanyToPixels(requestDto.getCompanyId(), tag, requestDto.getPixelNumber());
+        pixelService.setUserToPixels(requestDto.getUserEmail(),requestDto.getCompanyId(), tag, requestDto.getPixelNumber());
         return countryMapper.toDto(countryForUpdate);
     }
 

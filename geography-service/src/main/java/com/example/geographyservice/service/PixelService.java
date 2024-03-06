@@ -1,6 +1,8 @@
 package com.example.geographyservice.service;
 
+import com.example.geographyservice.dto.response.PixelDto;
 import com.example.geographyservice.model.Pixel;
+
 import java.util.List;
 
 public interface PixelService {
@@ -10,5 +12,9 @@ public interface PixelService {
 
     List<Pixel> getAllPixelsByCompanyId(String companyId);
 
-    List<Pixel> setCompanyToPixels(String companyId, String countryTag, Long pixelNumber);
+    List<Pixel> setUserToPixels(String userEmail, String companyId, String countryTag, Long pixelNumber);
+
+    List<PixelDto> getAllPixelsByIds(List<String> requestIds);
+
+    void saveAllPixels(List<PixelDto> pixelsDto);
 }

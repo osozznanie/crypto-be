@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/countries/{tag}/sale").permitAll()
                         .requestMatchers("/api/countries/{tag}").permitAll()
+                        .requestMatchers("/api/pixels").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

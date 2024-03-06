@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class MarketListingDto {
     private String id;
-    private String companyId;
+    private String userEmail;
     private String countryId;
     private String currency;
     private BigDecimal price;

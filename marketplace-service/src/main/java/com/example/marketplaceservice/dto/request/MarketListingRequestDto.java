@@ -3,13 +3,14 @@ package com.example.marketplaceservice.dto.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
 
 import lombok.Data;
 
 @Data
 public class MarketListingRequestDto {
     @NotNull
-    private String companyId;
+    private String userEmail;
     @NotNull
     private String countryId;
     @NotBlank
@@ -17,5 +18,5 @@ public class MarketListingRequestDto {
     @NotNull
     private BigDecimal price;
     @NotNull
-    private Long pixelNumber;
+    private List<String> pixelIds;
 }

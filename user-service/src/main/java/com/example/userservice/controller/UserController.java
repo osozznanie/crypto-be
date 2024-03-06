@@ -1,6 +1,7 @@
 package com.example.userservice.controller;
 
 import com.example.userservice.dto.request.UserRequestDto;
+import com.example.userservice.dto.request.UserUpdateRequestDto;
 import com.example.userservice.dto.response.UserDto;
 import com.example.userservice.service.UserService;
 import jakarta.validation.Valid;
@@ -49,5 +50,10 @@ public class UserController {
     @GetMapping("/feign-get-user")
     public UserDto getUserByEmail(@RequestParam(value = "email") String email) {
         return userService.findUserByEmail(email);
+    }
+
+    @PutMapping("/feign-update-pixel-number")
+    public UserDto updateUserPixelNumber(@RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+        return userService.updatePixelNumber(userUpdateRequestDto.getEmail(), userUpdateRequestDto.getPixelNumber());
     }
 }

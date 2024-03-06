@@ -1,14 +1,11 @@
 package com.example.transactionservice.dto.request;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ContinentPurchaseRequestDto {
-    @NotNull
+public class UserUpdateRequestDto {
+    private String email;
     private Long pixelNumber;
 }

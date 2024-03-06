@@ -9,4 +9,5 @@ public class UserDto {
     private String username;
     private String email;
     private ERole role;
+    private Long pixelNumber;
 }

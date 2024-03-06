@@ -11,6 +11,9 @@ public class PixelTransactionRequestDto {
     private String senderCompanyId;
     private String receiverCompanyId;
     @NotBlank
+    private String senderUserEmail;
+    private String receiverUserEmail;
+    @NotBlank
     private String countryTag;
     @NotBlank
     private String currency;

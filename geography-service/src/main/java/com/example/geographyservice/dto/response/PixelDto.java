@@ -1,15 +1,11 @@
-package com.example.geographyservice.model;
+package com.example.geographyservice.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Document("pixels")
-public class Pixel {
+public class PixelDto {
     private String id;
     private String companyId;
     private String userEmail;
