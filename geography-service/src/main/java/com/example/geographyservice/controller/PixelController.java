@@ -1,14 +1,15 @@
 package com.example.geographyservice.controller;
 
+import com.example.geographyservice.dto.request.GetPixelsRequestDto;
 import com.example.geographyservice.dto.response.PixelDto;
 import com.example.geographyservice.service.PixelService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,13 +17,13 @@ import java.util.List;
 public class PixelController {
     private final PixelService pixelService;
 
-    @GetMapping
-    List<PixelDto> getAllPixelsByIds(List<String> requestIds) {
-        return pixelService.getAllPixelsByIds(requestIds);
+    @PutMapping
+    List<PixelDto> getAllPixelsByIds(@RequestBody GetPixelsRequestDto requestDto) {
+        return pixelService.getAllPixelsByIds(requestDto.getPixelIds());
     }
 
     @PostMapping
-    void saveAllPixels(List<PixelDto> pixelsDto) {
+    void saveAllPixels(@RequestBody List<PixelDto> pixelsDto) {
         pixelService.saveAllPixels(pixelsDto);
     }
 }

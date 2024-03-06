@@ -1,6 +1,7 @@
 package com.example.marketplaceservice.service.impl;
 
 import com.example.marketplaceservice.dto.request.MarketListingRequestDto;
+import com.example.marketplaceservice.dto.request.GetPixelsRequestDto;
 import com.example.marketplaceservice.dto.response.MarketListingDto;
 import com.example.marketplaceservice.dto.response.PixelDto;
 import com.example.marketplaceservice.dto.response.UserDto;
@@ -75,7 +76,9 @@ public class MarketListingServiceImpl implements MarketListingService {
 
         MarketListingDto marketListingDto = save(requestDto);
 
-        List<PixelDto> pixelDtos = pixelFeign.getAllPixelsByIds(requestDto.getPixelIds());
+        GetPixelsRequestDto pixelRequestDto = new GetPixelsRequestDto();
+        pixelRequestDto.setPixelIds(requestDto.getPixelIds());
+        List<PixelDto> pixelDtos = pixelFeign.getAllPixelsByIds(pixelRequestDto);
 
         pixelDtos.forEach(
                 pixelDto -> pixelDto.setMarketListingId(marketListingDto.getId())
