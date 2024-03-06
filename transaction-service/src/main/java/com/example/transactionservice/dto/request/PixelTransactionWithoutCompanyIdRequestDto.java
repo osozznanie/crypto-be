@@ -6,13 +6,15 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
-public class PixelTransactionRequestDto {
+public class PixelTransactionWithoutCompanyIdRequestDto {
+    @NotNull
+    private String userEmail;
     @NotBlank
-    private String senderCompanyId;
+    private String companyName;
+    private String logoLink;
     @NotBlank
-    private String senderUserEmail;
-    private String receiverCompanyId;
-    private String receiverUserEmail;
+    private String websiteLink;
+    private String description;
     @NotBlank
     private String countryTag;
     @NotBlank
@@ -21,7 +23,6 @@ public class PixelTransactionRequestDto {
     private BigDecimal price;
     @NotNull
     private Long pixelNumber;
-    private String transactionType;
     @NotBlank
     private String transactionId;
 }

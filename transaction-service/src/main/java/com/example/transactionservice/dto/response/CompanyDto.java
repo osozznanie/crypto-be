@@ -1,4 +1,4 @@
-package com.example.companyservice.dto.response;
+package com.example.transactionservice.dto.response;
 
 import lombok.Data;
 

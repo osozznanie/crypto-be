@@ -7,13 +7,12 @@ import lombok.Data;
 @Data
 public class CompanyRequestDto {
     @NotNull
-    private String userId;
+    private String userEmail;
     @NotBlank
     private String name;
     private String logoLink;
     @NotBlank
     private String websiteLink;
     private String description;
-    @NotNull
     private Long pixelNumber;
 }

@@ -1,6 +1,7 @@
 package com.example.transactionservice.controller;
 
 import com.example.transactionservice.dto.request.PixelTransactionRequestDto;
+import com.example.transactionservice.dto.request.PixelTransactionWithoutCompanyIdRequestDto;
 import com.example.transactionservice.dto.response.PixelTransactionDto;
 import com.example.transactionservice.service.PixelTransactionService;
 import jakarta.validation.Valid;
@@ -27,7 +28,7 @@ public class PixelTransactionController {
     }
 
     @PostMapping("/country-pixel-purchase")
-    public PixelTransactionDto addPixelPurchase(@RequestBody @Valid PixelTransactionRequestDto requestDto) {
+    public PixelTransactionDto addPixelPurchase(@RequestBody @Valid PixelTransactionWithoutCompanyIdRequestDto requestDto) {
         return pixelTransactionService.createPurchase(requestDto);
     }
 

@@ -10,7 +10,7 @@ public class CompanyMapper {
     public CompanyDto toDto(Company company) {
         CompanyDto dto = new CompanyDto();
         dto.setId(company.getId());
-        dto.setUserId(company.getUserId());
+        dto.setUserEmail(company.getUserEmail());
         dto.setName(company.getName());
         dto.setLogoLink(company.getLogoLink());
         dto.setWebsiteLink(company.getWebsiteLink());
@@ -20,7 +20,7 @@ public class CompanyMapper {
     }
 
     public void updateModelFromDto(Company company, CompanyRequestDto dto) {
-        company.setUserId(dto.getUserId());
+        company.setUserEmail(dto.getUserEmail());
         company.setName(dto.getName());
         company.setLogoLink(dto.getLogoLink());
         company.setWebsiteLink(dto.getWebsiteLink());
