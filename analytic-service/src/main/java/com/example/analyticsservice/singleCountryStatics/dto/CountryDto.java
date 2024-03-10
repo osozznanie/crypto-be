@@ -14,7 +14,6 @@ public class CountryDto {
     public Long getRemainingPixels() {
         return pixelNumber - soldPixelNumber;
     }
-
     public double getPercentageSold() {
         return (double) ((soldPixelNumber * 100) / pixelNumber);
     }
