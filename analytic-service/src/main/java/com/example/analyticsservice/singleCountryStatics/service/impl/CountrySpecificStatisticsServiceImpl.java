@@ -1,6 +1,6 @@
 package com.example.analyticsservice.singleCountryStatics.service.impl;
 
-import com.example.analyticsservice.feign.CountryFeign;
+import com.example.analyticsservice.feign.GeographyFeign;
 import com.example.analyticsservice.singleCountryStatics.dto.CountryDto;
 import com.example.analyticsservice.singleCountryStatics.dto.CountrySpecificStatistics;
 import com.example.analyticsservice.singleCountryStatics.service.CountrySpecificStatisticsService;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CountrySpecificStatisticsServiceImpl implements CountrySpecificStatisticsService {
-    private final CountryFeign countryFeign;
+    private final GeographyFeign geographyFeign;
 
     @Override
     public CountrySpecificStatistics getCountryStats(String tag) {
@@ -18,7 +18,7 @@ public class CountrySpecificStatisticsServiceImpl implements CountrySpecificStat
             throw new IllegalArgumentException("Tag cannot be null or empty!");
         }
 
-        CountryDto countryByTagDto = countryFeign.getCountryByTag(tag);
+        CountryDto countryByTagDto = geographyFeign.getCountryByTag(tag);
         if (countryByTagDto == null) {
             return new CountrySpecificStatistics();
         }
