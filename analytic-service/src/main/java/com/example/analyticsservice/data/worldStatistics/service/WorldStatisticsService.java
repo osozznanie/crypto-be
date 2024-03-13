@@ -1,6 +1,6 @@
-package com.example.analyticsservice.worldStatistics.service;
+package com.example.analyticsservice.data.worldStatistics.service;
 
-import com.example.analyticsservice.worldStatistics.dto.WorldStatistics;
+import com.example.analyticsservice.data.worldStatistics.dto.WorldStatistics;
 
 public interface WorldStatisticsService {
     Long getTotalPixels();

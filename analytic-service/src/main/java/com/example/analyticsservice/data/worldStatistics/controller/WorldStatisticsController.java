@@ -1,7 +1,7 @@
-package com.example.analyticsservice.worldStatistics.controller;
+package com.example.analyticsservice.data.worldStatistics.controller;
 
-import com.example.analyticsservice.worldStatistics.dto.WorldStatistics;
-import com.example.analyticsservice.worldStatistics.service.WorldStatisticsService;
+import com.example.analyticsservice.data.worldStatistics.dto.WorldStatistics;
+import com.example.analyticsservice.data.worldStatistics.service.WorldStatisticsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

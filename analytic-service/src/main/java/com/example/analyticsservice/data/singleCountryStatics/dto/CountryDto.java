@@ -1,4 +1,4 @@
-package com.example.analyticsservice.singleCountryStatics.dto;
+package com.example.analyticsservice.data.singleCountryStatics.dto;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.example.analyticsservice.feign;
 
-import com.example.analyticsservice.singleCountryStatics.dto.CountryDto;
+import com.example.analyticsservice.data.singleCountryStatics.dto.CountryDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

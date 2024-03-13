@@ -1,8 +1,8 @@
-package com.example.analyticsservice.worldStatistics.service.impl;
+package com.example.analyticsservice.data.worldStatistics.service.impl;
 
 import com.example.analyticsservice.feign.GeographyFeign;
-import com.example.analyticsservice.worldStatistics.dto.WorldStatistics;
-import com.example.analyticsservice.worldStatistics.service.WorldStatisticsService;
+import com.example.analyticsservice.data.worldStatistics.dto.WorldStatistics;
+import com.example.analyticsservice.data.worldStatistics.service.WorldStatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

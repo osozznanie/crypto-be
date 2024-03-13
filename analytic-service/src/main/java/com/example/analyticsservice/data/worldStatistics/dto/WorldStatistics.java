@@ -1,4 +1,4 @@
-package com.example.analyticsservice.singleCountryStatics.dto;
+package com.example.analyticsservice.data.worldStatistics.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CountrySpecificStatistics {
-    private String countryName;
+public class WorldStatistics {
     private Long totalPixels;
     private Long remainingPixels;
     private Long soldPixels;
     private double percentageSold;
+
+    public double getPercentageSold() {
+        return ((double) (soldPixels * 100) / totalPixels);
+    }
+
+    public Long remainingPixels() {
+        return totalPixels - soldPixels;
+    }
 }

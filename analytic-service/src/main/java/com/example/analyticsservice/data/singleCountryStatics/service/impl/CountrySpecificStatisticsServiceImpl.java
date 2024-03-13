@@ -1,9 +1,9 @@
-package com.example.analyticsservice.singleCountryStatics.service.impl;
+package com.example.analyticsservice.data.singleCountryStatics.service.impl;
 
 import com.example.analyticsservice.feign.GeographyFeign;
-import com.example.analyticsservice.singleCountryStatics.dto.CountryDto;
-import com.example.analyticsservice.singleCountryStatics.dto.CountrySpecificStatistics;
-import com.example.analyticsservice.singleCountryStatics.service.CountrySpecificStatisticsService;
+import com.example.analyticsservice.data.singleCountryStatics.dto.CountryDto;
+import com.example.analyticsservice.data.singleCountryStatics.dto.CountrySpecificStatistics;
+import com.example.analyticsservice.data.singleCountryStatics.service.CountrySpecificStatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
