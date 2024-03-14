@@ -30,11 +30,6 @@ public class CompanyController {
         return companyStatisticsService.getTopCompanies(3);
     }
 
-//    @GetMapping("/{tag}")
-//    public CompanyResponseDto getCompanyStats(@PathVariable String tag) {
-//        return companyStatisticsService.getCompanyStats(tag);
-//    }
-
     @GetMapping("/top-companies-by-continent")
     public List<CompanyResponseDto> getTopCompaniesByContinent() {
         return companyStatisticsService.getTopCompaniesByContinent();
