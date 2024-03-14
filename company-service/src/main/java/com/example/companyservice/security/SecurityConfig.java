@@ -30,6 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/companies").permitAll()
                         .requestMatchers("/api/companies/{id}").permitAll()
+                        .requestMatchers("/api/companies/topCompaniesByContinent").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

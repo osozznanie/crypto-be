@@ -1,6 +1,7 @@
 package com.example.companyservice.controller;
 
 import com.example.companyservice.dto.request.CompanyRequestDto;
+import com.example.companyservice.dto.response.CompanyContinentStatistics;
 import com.example.companyservice.dto.response.CompanyDto;
 import com.example.companyservice.service.CompanyService;
 import jakarta.validation.Valid;
@@ -51,6 +52,11 @@ public class CompanyController {
     public String deleteCompany(@PathVariable String id) {
         companyService.deleteById(id);
         return "Company with id = " + id + " is successfully removed";
+    }
+
+    @GetMapping("/topCompaniesByContinent")
+    public List<CompanyContinentStatistics> getTopCompaniesByContinent() {
+        return companyService.getTopCompaniesByContinent();
     }
 }
 

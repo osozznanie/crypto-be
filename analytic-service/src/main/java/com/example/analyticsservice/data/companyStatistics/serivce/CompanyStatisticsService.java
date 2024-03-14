@@ -4,7 +4,8 @@ import com.example.analyticsservice.data.companyStatistics.dto.response.CompanyR
 
 import java.util.List;
 
-public interface CompanyService {
+public interface CompanyStatisticsService {
     List<CompanyResponseDto> getTopCompanies(int amount);
     Long getAmountOfCompanies();
+    List<CompanyResponseDto> getTopCompaniesByContinent();
 }

@@ -1,6 +1,7 @@
 package com.example.companyservice.service.impl;
 
 import com.example.companyservice.dto.request.CompanyRequestDto;
+import com.example.companyservice.dto.response.CompanyContinentStatistics;
 import com.example.companyservice.dto.response.CompanyDto;
 import com.example.companyservice.mapper.CompanyMapper;
 import com.example.companyservice.model.Company;
@@ -54,5 +55,10 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional
     public void deleteById(String id) {
         companyRepository.deleteById(id);
+    }
+
+    @Override
+    public List<CompanyContinentStatistics> getTopCompaniesByContinent() {
+        return companyRepository.findTopCompaniesByContinent();
     }
 }
