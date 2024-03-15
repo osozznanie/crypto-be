@@ -8,6 +8,8 @@ import com.example.geographyservice.service.CountryService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,6 +61,11 @@ public class CountryController {
     public String deleteCountry(@PathVariable String id) {
         countryService.deleteById(id);
         return "Country with id = " + id + " is successfully removed";
+    }
+
+    @GetMapping("/no-purchased-pixels")
+    public Page<CountryDto> getCountriesWithNoPurchasedPixels(Pageable pageable) {
+        return countryService.getCountriesWithNoPurchasedPixels(pageable);
     }
 }
 

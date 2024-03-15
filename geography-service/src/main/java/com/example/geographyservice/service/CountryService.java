@@ -4,6 +4,9 @@ import com.example.geographyservice.dto.request.CountryPurchaseRequestDto;
 import com.example.geographyservice.dto.request.CountryRequestDto;
 import com.example.geographyservice.dto.response.CountryDto;
 import com.example.geographyservice.dto.response.CountryStatsDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 public interface CountryService {
@@ -22,4 +25,6 @@ public interface CountryService {
     void deleteById(String id);
 
     CountryDto getByTag(String tag);
+
+    Page<CountryDto> getCountriesWithNoPurchasedPixels(Pageable pageable);
 }
