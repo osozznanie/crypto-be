@@ -31,8 +31,8 @@ docker-build:
   services:
     - docker:dind
   script:
-    - docker build -t cryptoworld/eureka-server:prod ./eureka-server/
-    - docker build -t cryptoworld/api-gateway:prod ./api-gateway/
+    - docker build -t cryptoworld/eureka-server:prod --network=host ./eureka-server/
+    - docker build -t cryptoworld/api-gateway:prod --network=host ./api-gateway/
     - docker build -t cryptoworld/analytic-service:prod ./analytic-service/
     - docker build -t cryptoworld/company-service:prod ./company-service/
     - docker build -t cryptoworld/geography-service:prod ./geography-service/
