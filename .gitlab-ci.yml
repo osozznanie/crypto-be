@@ -26,6 +26,8 @@ build:
 docker-build:
   stage: docker-build
   image: docker:19.03.12
+  tags:
+    - deploy-crypto-world-be
   services:
     - docker:dind
   script:
@@ -44,6 +46,8 @@ docker-build:
 deploy:
   stage: deploy
   image: docker:19.03.12
+  tags:
+    - deploy-crypto-world-be
   services:
     - docker:dind
   script:
