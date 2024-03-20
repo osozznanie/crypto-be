@@ -28,7 +28,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/countries/{tag}/sale").permitAll()
                         .requestMatchers("/api/countries/{tag}").permitAll()
-                        .requestMatchers("/api/world/total-pixel-number").permitAll()
                         .requestMatchers("/api/world/total-sold-pixel-number").permitAll()
                         .requestMatchers("/api/world/total-pixel-number").permitAll()
                         .anyRequest().authenticated()

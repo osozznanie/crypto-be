@@ -22,6 +22,7 @@
 
     <modules>
         <module>eureka-server</module>
+        <module>api-gateway</module>
         <module>logging-service</module>
         <module>transaction-service</module>
         <module>company-service</module>
@@ -29,7 +30,6 @@
         <module>marketplace-service</module>
         <module>user-service</module>
         <module>analytic-service</module>
-        <module>api-gateway</module>
     </modules>
 
     <dependencies>
