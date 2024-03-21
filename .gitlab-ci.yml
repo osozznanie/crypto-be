@@ -1,3 +1,8 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
 stages:
   - build
   - docker-build
@@ -7,49 +12,27 @@ variables:
   MAVEN_OPTS: "-Xmx1024m"
   DOCKER_DRIVER: overlay2
 
-cache:
-  paths:
-    - .m2/repository
+before_script:
+  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
 build:
   stage: build
-  image: maven:3.8.4-openjdk-17
-  tags:
-    - deploy-crypto-world-be
   script:
-    - mvn clean package -DskipTests=true
-  artifacts:
-    paths:
-      - target/
-    expire_in: 1 hour
+    - ./mvnw package
 
 docker-build:
   stage: docker-build
-  image: docker:19.03.12
-  tags:
-    - deploy-crypto-world-be
-  services:
-    - docker:dind
   script:
-    - docker build -t cryptoworld/eureka-server:prod ./eureka-server/
-    - docker build -t cryptoworld/api-gateway:prod ./api-gateway/
-    - docker build -t cryptoworld/analytic-service:prod ./analytic-service/
-    - docker build -t cryptoworld/company-service:prod ./company-service/
-    - docker build -t cryptoworld/geography-service:prod ./geography-service/
-    - docker build -t cryptoworld/marketplace-service:prod ./marketplace-service/
-    - docker build -t cryptoworld/transaction-service:prod ./transaction-service/
-    - docker build -t cryptoworld/user-service:prod ./user-service/
-  only:
-    - branches
+    - docker-compose build
+    - docker-compose push
 
 deploy:
   stage: deploy
-  image: docker:19.03.12
-  tags:
-    - deploy-crypto-world-be
-  services:
-    - docker:dind
   script:
-    - docker compose up -d
+    - docker-compose pull
+    - docker-compose up -d
+  environment:
+    name: production
+  when: manual
   only:
-    - dev
+    - main
