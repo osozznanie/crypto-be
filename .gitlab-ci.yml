@@ -1,27 +1,24 @@
+
 stages:
   - build
   - deploy
 
-cache:
-  paths:
-    - .m2/repository
 
 build:
   stage: build
-  image: maven:3.8.4-openjdk-17
   tags:
     - deploy-crypto-world-be
+  image: maven:3.6.3-jdk-11
   script:
-    - sudo docker-compose build
+    - sudo docker-compose build 
   artifacts:
     paths:
       - target/
-    expire_in: 1 hour
 
 deploy:
   stage: deploy
-  image: docker:19.03.12
   tags:
     - deploy-crypto-world-be
+  image: docker:19.03.12
   script:
-    - docker compose up -d
+    - sudo docker-compose up -d
