@@ -2,7 +2,6 @@ stages:
   - build
   - deploy
 
-
 cache:
   paths:
     - .m2/repository
@@ -13,18 +12,16 @@ build:
   tags:
     - deploy-crypto-world-be
   script:
-    - sudo docker-compose build
+    - docker-compose build
   artifacts:
     paths:
       - target/
     expire_in: 1 hour
 
-
 deploy:
   stage: deploy
   image: docker:19.03.12
   tags:
-    - sudo deploy-crypto-world-be
+    - deploy-crypto-world-be
   script:
     - docker compose up -d
-
