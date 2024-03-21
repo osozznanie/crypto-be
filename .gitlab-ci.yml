@@ -31,8 +31,8 @@ docker-build:
   services:
     - docker:dind
   script:
-    - docker compose build
-    - docker compose push
+    - docker build
+    - docker push
   only:
     - branches
 
