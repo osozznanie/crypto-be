@@ -13,7 +13,7 @@ build:
   tags:
     - deploy-crypto-world-be
   script:
-    - docker-compose build
+    - sudo docker-compose build
   artifacts:
     paths:
       - target/
@@ -24,7 +24,7 @@ deploy:
   stage: deploy
   image: docker:19.03.12
   tags:
-    - deploy-crypto-world-be
+    - sudo deploy-crypto-world-be
   script:
     - docker compose up -d
 
