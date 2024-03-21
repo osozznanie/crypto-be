@@ -36,7 +36,6 @@ docker-build:
     - docker build -t cryptoworld/analytic-service:prod ./analytic-service/
     - docker build -t cryptoworld/company-service:prod ./company-service/
     - docker build -t cryptoworld/geography-service:prod ./geography-service/
-    - docker build -t cryptoworld/logging-service:prod ./logging-service/
     - docker build -t cryptoworld/marketplace-service:prod ./marketplace-service/
     - docker build -t cryptoworld/transaction-service:prod ./transaction-service/
     - docker build -t cryptoworld/user-service:prod ./user-service/

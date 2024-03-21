@@ -1,65 +1,131 @@
-version: '3.7'
+version: '3'
 
 services:
+  # Eureka Server #
   eureka-server:
-    image: cryptoworld/eureka-server:prod
-    container_name: eureka-server
+    build: ./eureka-server
     ports:
       - "8761:8761"
+    networks:
+      - service_network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
 
-  api-gateway:
-    image: cryptoworld/api-gateway:prod
-    container_name: api-gateway
+  # Transaction Service #
+  transaction-service:
+    build: ./transaction-service
+    ports:
+      - "8093:8093"
+    networks:
+      - service_network
     depends_on:
       - eureka-server
+      - user-service
+    healthcheck:
+      test: ["CMD", "echo", "OK"]
+      interval: 5s
+      timeout: 15s
+      retries: 3
+
+  # Company Service #
+  company-service:
+    build: ./company-service
+    ports:
+      - "8094:8094"
+    networks:
+      - service_network
+    depends_on:
+      - eureka-server
+      - user-service
+    healthcheck:
+      test: ["CMD", "echo", "OK"]
+      interval: 5s
+      timeout: 15s
+      retries: 3
+
+  # Geography Service #
+  geography-service:
+    build: ./geography-service
+    ports:
+      - "8095:8095"
+    networks:
+      - service_network
+    depends_on:
+      - eureka-server
+    healthcheck:
+      test: ["CMD", "echo", "OK"]
+      interval: 5s
+      timeout: 15s
+      retries: 3
+
+  # Marketplace Service #
+  marketplace-service:
+    build: ./marketplace-service
+    ports:
+      - "8096:8096"
+    networks:
+      - service_network
+    depends_on:
+      - eureka-server
+      - user-service
+    healthcheck:
+      test: ["CMD", "echo", "OK"]
+      interval: 5s
+      timeout: 15s
+      retries: 3
+
+  # User Service #
+  user-service:
+    build: ./user-service
+    ports:
+      - "8097:8097"
+    networks:
+      - service_network
+    depends_on:
+      - eureka-server
+    healthcheck:
+      test: ["CMD", "echo", "OK"]
+      interval: 5s
+      timeout: 15s
+      retries: 3
+
+  # Analytics Service #
+  analytic-service:
+    build: ./analytic-service
+    ports:
+      - "8098:8098"
+    networks:
+      - service_network
+    depends_on:
+      - eureka-server
+      - user-service
+    healthcheck:
+      test: ["CMD", "echo", "OK"]
+      interval: 5s
+      timeout: 15s
+      retries: 3
+
+  # API Gateway #
+  api-gateway:
+    build: ./api-gateway
     ports:
       - "9090:9090"
-
-  analytic-service:
-    image: cryptoworld/analytic-service:prod
-    container_name: analytic-service
+    networks:
+      - service_network
     depends_on:
       - eureka-server
-      - api-gateway
+    environment:
+      - server.port=9090
+      - spring.application.name=api-gateway-prod
+      - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka/
+      - eureka.client.register-with-eureka=true
+      - eureka.client.fetch-registry=true
+      - spring.cloud.gateway.discovery.locator.enabled=true
+      - spring.cloud.gateway.discovery.locator.lowerCaseServiceId=true
 
-  company-service:
-    image: cryptoworld/company-service:prod
-    container_name: company-service
-    depends_on:
-      - eureka-server
-      - api-gateway
-
-  geography-service:
-    image: cryptoworld/geography-service:prod
-    container_name: geography-service
-    depends_on:
-      - eureka-server
-      - api-gateway
-
-  logging-service:
-    image: cryptoworld/logging-service:prod
-    container_name: logging-service
-    depends_on:
-      - eureka-server
-      - api-gateway
-
-  marketplace-service:
-    image: cryptoworld/marketplace-service:prod
-    container_name: marketplace-service
-    depends_on:
-      - eureka-server
-      - api-gateway
-
-  transaction-service:
-    image: cryptoworld/transaction-service:prod
-    container_name: transaction-service
-    depends_on:
-      - eureka-server
-      - api-gateway
-
-  user-service:
-    image: cryptoworld/user-service:prod
-    container_name: user-service
-    depends_on:
-      - eureka-server
-      - api-gateway
+networks:
+  service_network:
+    driver: bridge

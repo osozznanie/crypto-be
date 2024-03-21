@@ -15,13 +15,13 @@
         <module name="company-service" />
         <module name="user-service" />
         <module name="eureka-server" />
-        <module name="logging-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="apiGateway" target="17" />
       <module name="authentication-service" target="17" />
       <module name="eureka-service" target="1.8" />
+      <module name="logging-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
