@@ -11,4 +11,4 @@ RUN ./mvnw -B package
 
 EXPOSE 9090
 
-ENTRYPOINT ["java", "-jar","-Dspring.profiles.active=prod", "target/api-gateway-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar","-Dspring.profiles.active=prod", "target/api-gateway.jar"]
