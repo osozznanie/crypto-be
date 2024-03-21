@@ -12,7 +12,7 @@ build:
   tags:
     - deploy-crypto-world-be
   script:
-    - docker-compose build
+    - sudo docker-compose build
   artifacts:
     paths:
       - target/
