@@ -7,7 +7,7 @@ RUN chmod +x mvnw
 RUN ./mvnw -B dependency:go-offline
 RUN ./mvnw -B package
 
-EXPOSE 8761
+EXPOSE 8010
 ENV IMAGE_NAME=eureka-server
 
 
