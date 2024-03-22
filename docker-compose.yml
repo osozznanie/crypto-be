@@ -5,7 +5,7 @@ services:
   eureka-server:
     build: ./eureka-server
     ports:
-      - "8010:8010"
+      - "8761:8761"
     networks:
       - service_network
     healthcheck:
