@@ -7,8 +7,8 @@ RUN chmod +x mvnw
 RUN ./mvnw -B dependency:go-offline
 RUN ./mvnw -B package
 
-EXPOSE 8761
+EXPOSE 8010
 ENV IMAGE_NAME=eureka-server
 
 
-ENTRYPOINT ["java", "-jar","-Dspring.profiles.active=prod", "target/eureka-server.jar"]
+ENTRYPOINT ["java", "-jar", "target/eureka-server.jar"]
